@@ -26,13 +26,18 @@ Then invoke with `/interview-prep` or `/interview-designer`, or just describe wh
 **Any other LLM:** the same instructions work as plain system prompts — copy-paste versions live at
 [aieraengineering.com/ai](https://aieraengineering.com/ai/).
 
-## Figma MCP server
+## MCP servers
 
-This repo ships a project-scoped `.mcp.json` that registers Figma's remote
-MCP server (`https://mcp.figma.com/mcp`) with Claude Code. Open the project
-in Claude Code and approve the server when prompted; you'll be taken through
-Figma's OAuth flow on first use. See [Figma's MCP server docs](https://developers.figma.com/docs/figma-mcp-server/)
-for details and the desktop-server alternative.
+This repo ships a project-scoped `.mcp.json` with:
+
+- **`figma`** — Figma's remote MCP server (`https://mcp.figma.com/mcp`) for
+  reading design context (components, variables, layout). Approve it when
+  Claude Code prompts you; you'll go through Figma's OAuth flow on first use.
+  See [Figma's MCP server docs](https://developers.figma.com/docs/figma-mcp-server/).
+- **`playwright`** — the [Playwright MCP server](https://github.com/microsoft/playwright-mcp)
+  (via `npx @playwright/mcp`), for driving a real browser to check anything
+  built from a Figma design (a Sites export, a coded prototype, a component
+  library preview) actually renders and behaves as designed.
 
 ## How it works
 
