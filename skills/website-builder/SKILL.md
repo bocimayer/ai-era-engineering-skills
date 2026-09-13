@@ -68,6 +68,13 @@ the opposite mistake.
   plain CSS (with custom properties for theme values) for static HTML sites.
   Don't add a component library (shadcn/ui, MUI, etc.) unless the app has
   enough interactive surface area to justify it — a landing page doesn't.
+- **Common UI primitives (toasts, dialogs, command menus, OTP inputs,
+  charts, drag-and-drop):** don't hand-roll these. If the
+  [`pick-ui-library`](https://github.com/emilkowalski/skill) skill is
+  installed, invoke it to get the curated pick for the specific task
+  (e.g. Sonner for toasts, base-ui for unstyled accessible primitives,
+  motion for spring/gesture animation). Otherwise check the project's
+  `package.json` for an existing choice before adding a new dependency.
 - **TypeScript:** default on for anything framework-based; skip it for
   plain static sites unless the user asks.
 - **Images/assets:** use the framework's built-in image optimization
@@ -82,9 +89,30 @@ the opposite mistake.
 
 ## Step 5 — Taste and polish
 
-Generic scaffolds read as generic because the interactive states and motion
-were never considered, not because the color palette was wrong. Before
-calling a component finished:
+Generic scaffolds read as generic because the interactive states, motion,
+and layout defaults were never questioned, not because the color palette was
+wrong. Two dedicated, installable skills cover this better than a bullet
+list can — check whether either is installed and load it before writing UI
+code:
+
+- **[`emilkowalski/skill`](https://github.com/emilkowalski/skill)**
+  (`npx skills@latest add emilkowalski/skills`) — animation and
+  component-craft taste from Emil Kowalski (ex-Vercel/Linear, author of
+  Sonner and Vaul). Use **`emil-design-eng`** for general UI polish
+  (easing choice, transform-origins, hover/press feedback), **`animate`**
+  when building a specific animation from scratch, **`review-animations`**
+  to audit motion already in the codebase, and **`pick-ui-library`** for
+  the component-library decision in Step 4.
+- **[`leonxlnx/taste-skill`](https://github.com/leonxlnx/taste-skill)**
+  (`npx skills add https://github.com/Leonxlnx/taste-skill`) — anti-slop
+  layout/visual-direction taste for landing pages, portfolios, and
+  redesigns. It reads the brief, infers a design direction, and tunes
+  three dials (layout variance, motion intensity, visual density) instead
+  of defaulting to the same generic template. Use its default
+  `design-taste-frontend` skill for greenfield builds and
+  `redesign-existing-projects` when improving an existing UI.
+
+If neither is installed, apply this fallback checklist instead:
 
 - Give every interactive element real hover, focus, active, and disabled
   states — not just the default browser outline. Focus states must stay
@@ -103,8 +131,8 @@ calling a component finished:
 - Keep spacing and sizing on a consistent scale (e.g. Tailwind's default
   scale) rather than one-off pixel values scattered through the code.
 
-This is a taste checklist, not a framework — apply it whatever stack Step 3
-picked, including plain HTML/CSS.
+Apply whichever version fires whatever stack Step 3 picked, including plain
+HTML/CSS — none of this is React-specific.
 
 ## Step 6 — Baseline quality bar
 
