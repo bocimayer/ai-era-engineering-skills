@@ -2,12 +2,14 @@
 
 Claude skills built on [The AI-Era Engineering Playbook](https://aieraengineering.com) — a practitioner framework for software engineering in the AI era.
 
-Two skills, one for each side of the interview table:
+Two skills, one for each side of the interview table, plus a general-purpose
+build helper:
 
 | Skill | Audience | What it does |
 |---|---|---|
 | [`interview-prep`](skills/interview-prep/SKILL.md) | Engineers | Coaches you through scored practice drills for the three skills modern interviews actually test: specification quality, output evaluation, failure-mode reasoning. Drills use your own stack. |
 | [`interview-designer`](skills/interview-designer/SKILL.md) | Hiring teams | Builds company-specific question sets, scorecards, and job descriptions under five hard generation rules; audits an existing process for interview drift. |
+| [`website-builder`](skills/website-builder/SKILL.md) | Anyone building a site | Decision guide for what stack to reach for when asked to build a website — matches the request's complexity (static HTML vs. Astro vs. Next.js) instead of defaulting to a framework by habit. |
 
 ## Install
 
