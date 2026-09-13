@@ -32,7 +32,22 @@ If the user's request already names a stack, a language, or an existing
 codebase to extend, use that — this guide is for filling the gap when they
 didn't specify one, not for overriding an explicit choice.
 
-## Step 2 — Pick the stack
+## Step 2 — Check for a design source
+
+If the user references a Figma file (a link, "match this Figma," an existing
+design system), don't eyeball a screenshot. Use the Figma MCP connector if
+it's connected (`get_design_context`, `get_screenshot`, `get_variable_defs`,
+`create_design_system_rules`) to pull the real spacing scale, color tokens,
+type scale, and component structure, and build against those values instead
+of guessing pixel values from an image. If the connector isn't connected,
+tell the user it would make the handoff more accurate and ask if they want
+to connect it (claude.ai connector settings) before proceeding with a
+screenshot-only approximation.
+
+No design source means no visual spec to match — proceed on taste (Step 5)
+and the user's copy/content instead of inventing a brand.
+
+## Step 3 — Pick the stack
 
 | Situation | Default stack |
 |---|---|
@@ -47,7 +62,7 @@ single most common over-engineering mistake here. Do not hand-roll vanilla
 JS for something that clearly needs client-side routing and state — that's
 the opposite mistake.
 
-## Step 3 — Fill in the rest of the stack
+## Step 4 — Fill in the rest of the stack
 
 - **Styling:** Tailwind CSS by default for anything with a build step;
   plain CSS (with custom properties for theme values) for static HTML sites.
@@ -65,12 +80,42 @@ the opposite mistake.
   different target; static HTML deploys anywhere (GitHub Pages, Netlify, S3)
   — don't assume Vercel is required for it.
 
-## Step 4 — Baseline quality bar
+## Step 5 — Taste and polish
+
+Generic scaffolds read as generic because the interactive states and motion
+were never considered, not because the color palette was wrong. Before
+calling a component finished:
+
+- Give every interactive element real hover, focus, active, and disabled
+  states — not just the default browser outline. Focus states must stay
+  visible for keyboard users; never remove `outline` without replacing it.
+- Use purposeful transitions (150–250ms, an eased curve like
+  `ease-out`/`cubic-bezier`, not linear) on state changes — hover, open/close,
+  toggle. Motion should clarify what changed, not decorate. Respect
+  `prefers-reduced-motion` by disabling non-essential motion for users who
+  request it.
+- Design the empty, loading, and error states, not just the happy path —
+  these are where unpolished sites show it fastest.
+- Avoid the default "AI-generated" look: purple/blue gradient hero, every
+  corner at the same `rounded-2xl`, generic drop shadows on everything, stock
+  hero illustration. Ground color, radius, and spacing choices in the
+  specific brand/content instead of a generic default.
+- Keep spacing and sizing on a consistent scale (e.g. Tailwind's default
+  scale) rather than one-off pixel values scattered through the code.
+
+This is a taste checklist, not a framework — apply it whatever stack Step 3
+picked, including plain HTML/CSS.
+
+## Step 6 — Baseline quality bar
 
 Regardless of stack, before calling a website "done":
 
 - Responsive at mobile widths (~375px) through desktop — check it, don't
-  assume it.
+  assume it. If Playwright is available in the environment, launch the site
+  and screenshot it at a mobile and a desktop viewport, and click through the
+  primary flow (nav, the main form, any interactive component) rather than
+  reading the code and assuming it works — the `run` skill covers launching
+  and driving the app.
 - Semantic HTML (`<nav>`, `<main>`, `<header>`, `<button>` not `<div
   onclick>`) and real alt text on images — this is both accessibility and
   SEO.
@@ -79,8 +124,10 @@ Regardless of stack, before calling a website "done":
   content the user actually gave you real copy for.
 - Light/dark rendering only if the user asked for a theme toggle — don't
   add one speculatively.
+- Anything with forms, auth, or user data gets a pass through the
+  `security-review` skill before shipping.
 
-## Step 5 — Say what you picked
+## Step 7 — Say what you picked
 
 State the chosen stack and the one-line reason in your first response
 before generating files, e.g. "This is a five-page marketing site with no
