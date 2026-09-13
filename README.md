@@ -26,6 +26,14 @@ Then invoke with `/interview-prep` or `/interview-designer`, or just describe wh
 **Any other LLM:** the same instructions work as plain system prompts — copy-paste versions live at
 [aieraengineering.com/ai](https://aieraengineering.com/ai/).
 
+## Figma MCP server
+
+This repo ships a project-scoped `.mcp.json` that registers Figma's remote
+MCP server (`https://mcp.figma.com/mcp`) with Claude Code. Open the project
+in Claude Code and approve the server when prompted; you'll be taken through
+Figma's OAuth flow on first use. See [Figma's MCP server docs](https://developers.figma.com/docs/figma-mcp-server/)
+for details and the desktop-server alternative.
+
 ## How it works
 
 Both skills fetch the full methodology corpus from
