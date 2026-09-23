@@ -1,0 +1,834 @@
+<title>Neurodivergence Trait Profile</title>
+<meta name="description" content="Research-grounded self/parent-report profile of ADHD, autism-spectrum, sensory, learning and motor traits for adults and 9–10 year olds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,650&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F1F4F3; --surface:#FFFFFF; --sunk:#E7ECEB; --ink:#18232E; --ink-2:#3E4B57; --muted:#5E6B76;
+  --rule:#D6DDDC; --accent:#2B5A85; --accent-ink:#FFFFFF; --focus:#2B5A85;
+  --b0:#E1EAF3; --b1:#BCD0E4; --b2:#85A8CB; --b3:#4B78A6; --pin:#18232E;
+  --warn-bg:#FFF4DC; --warn-ink:#6B4A00; --warn-rule:#E8C77A;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#11161B; --surface:#182028; --sunk:#1F2932; --ink:#E4EAEF; --ink-2:#C2CCD4; --muted:#93A1AC;
+    --rule:#2A3540; --accent:#8CB5DD; --accent-ink:#0F1A24; --focus:#8CB5DD;
+    --b0:#1D2A37; --b1:#27435D; --b2:#3A6690; --b3:#6395C6; --pin:#F2F6F9;
+    --warn-bg:#2E2615; --warn-ink:#F0D69A; --warn-rule:#6B5626;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#11161B; --surface:#182028; --sunk:#1F2932; --ink:#E4EAEF; --ink-2:#C2CCD4; --muted:#93A1AC;
+  --rule:#2A3540; --accent:#8CB5DD; --accent-ink:#0F1A24; --focus:#8CB5DD;
+  --b0:#1D2A37; --b1:#27435D; --b2:#3A6690; --b3:#6395C6; --pin:#F2F6F9;
+  --warn-bg:#2E2615; --warn-ink:#F0D69A; --warn-rule:#6B5626;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
+h1,h2,h3{font-family:var(--serif);font-weight:650;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(1.7rem,4vw,2.35rem);line-height:1.15}
+h2{font-size:1.35rem;line-height:1.25}
+h3{font-size:1.05rem;line-height:1.3}
+p{margin:0}
+.eyebrow{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.lede{color:var(--ink-2);max-width:68ch;margin-top:10px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.masthead{display:grid;gap:18px}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:8px;background:var(--surface);padding:3px;gap:3px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:7px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin-top:22px;overflow-x:auto}
+.tabs button{border:0;background:none;padding:10px 14px;cursor:pointer;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.ghost{border:1px solid var(--rule);background:var(--surface);padding:7px 12px;border-radius:7px;cursor:pointer;font-size:.86rem;font-weight:600}
+.ghost:hover{border-color:var(--accent)}
+
+.notice{border:1px solid var(--warn-rule);background:var(--warn-bg);color:var(--warn-ink);border-radius:8px;padding:12px 14px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:18px;font-size:.92rem}
+.notice strong{font-weight:700}
+.fine{font-size:.84rem;color:var(--muted)}
+
+.progress{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:10px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--rule)}
+.progress .bar{flex:1;height:6px;background:var(--sunk);border-radius:3px;overflow:hidden}
+.progress .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.progress .count{font-size:.82rem;color:var(--muted);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.progress .bar i{transition:none}}
+
+.domain{margin-top:34px}
+.domain > header{display:grid;gap:6px;margin-bottom:10px}
+.domain > header p{color:var(--muted);font-size:.9rem;max-width:70ch}
+.q{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 20px;align-items:center;padding:14px 0;border-top:1px solid var(--rule)}
+.q:last-child{border-bottom:1px solid var(--rule)}
+.q .qt{display:grid;gap:3px}
+.q .qn{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.q .src{font-size:.76rem;color:var(--muted);display:none}
+.show-src .q .src{display:block}
+.q.unanswered .qn::after{content:" · unanswered";color:var(--muted)}
+.opts{display:flex;gap:4px;flex-wrap:nowrap}
+.opts input{position:absolute;opacity:0;width:1px;height:1px}
+.opts label{display:grid;place-items:center;min-width:64px;padding:7px 6px;border:1px solid var(--rule);background:var(--surface);border-radius:6px;cursor:pointer;font-size:.78rem;text-align:center;line-height:1.2;color:var(--ink-2)}
+.opts label:hover{border-color:var(--accent)}
+.opts input:checked + label{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.opts input:focus-visible + label{outline:2px solid var(--focus);outline-offset:2px}
+@media (max-width:760px){
+  .q{grid-template-columns:1fr}
+  .opts{flex-wrap:wrap}
+  .opts label{min-width:0;flex:1 1 0}
+}
+.toggle{display:inline-flex;gap:8px;align-items:center;font-size:.86rem;color:var(--ink-2);cursor:pointer}
+
+/* Profile */
+.section{margin-top:30px}
+.panel{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:18px 20px}
+.composites{display:grid;gap:18px}
+.comp{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr) 5.5rem;gap:6px 18px;align-items:center}
+.comp .name{font-weight:650}
+.comp .desc{font-size:.8rem;color:var(--muted)}
+.val{text-align:right}
+.val b{font-family:var(--mono);font-weight:500;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.val span{display:block;font-size:.74rem;color:var(--muted)}
+.meter{position:relative;height:14px}
+.meter .bands{position:absolute;inset:0;display:flex;gap:2px}
+.meter .bands i{display:block;height:100%}
+.meter .bands i:nth-child(1){background:var(--b0);border-radius:4px 0 0 4px}
+.meter .bands i:nth-child(2){background:var(--b1)}
+.meter .bands i:nth-child(3){background:var(--b2)}
+.meter .bands i:nth-child(4){background:var(--b3);border-radius:0 4px 4px 0}
+.meter .pin{position:absolute;top:-5px;width:12px;height:24px;margin-left:-6px;border-radius:4px;background:var(--pin);box-shadow:0 0 0 2px var(--surface)}
+.meter.empty .pin{display:none}
+.meter.small{height:10px}
+.meter.small .pin{top:-4px;height:18px;width:10px;margin-left:-5px}
+.axis{position:relative;height:16px;font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:4px}
+.axis span{position:absolute;transform:translateX(-50%)}
+.axis span:first-child{transform:none}
+.axis span:last-child{transform:translateX(-100%)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.78rem;color:var(--ink-2);margin-top:14px}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+@media (max-width:640px){
+  .comp{grid-template-columns:minmax(0,1fr) auto}
+  .comp .meter-wrap{grid-column:1 / -1;grid-row:2}
+}
+
+.screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.screen{background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.screen .big{font-family:var(--mono);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--rule);color:var(--ink-2);width:max-content}
+.chip.hit{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+.dgroup{margin-top:26px}
+.dgroup h3{margin-bottom:6px}
+.drow{display:grid;grid-template-columns:minmax(0,14rem) minmax(0,1fr) 7.5rem;gap:4px 18px;align-items:center;padding:10px 0;border-top:1px solid var(--rule)}
+.drow .dn{font-weight:600;font-size:.93rem}
+.drow .dm{font-size:.76rem;color:var(--muted)}
+.drow .val b{font-size:.98rem}
+@media (max-width:640px){
+  .drow{grid-template-columns:minmax(0,1fr) auto}
+  .drow .meter-wrap{grid-column:1 / -1;grid-row:2}
+}
+
+/* Method */
+.method{display:grid;gap:26px;margin-top:26px}
+.method p,.method li{max-width:72ch;color:var(--ink-2)}
+.method ul,.method ol{margin:8px 0 0;padding-left:1.2em;display:grid;gap:6px}
+.tablewrap{overflow-x:auto;border:1px solid var(--rule);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:640px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--sunk)}
+tr:last-child td{border-bottom:0}
+.refs li{font-size:.86rem}
+.refs .k{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
+.foot{margin-top:40px;font-size:.82rem;color:var(--muted);max-width:72ch}
+.row-actions{display:flex;gap:8px;flex-wrap:wrap}
+.status{font-size:.82rem;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <div class="masthead">
+    <div>
+      <p class="eyebrow">Behavioural trait screening · research-derived</p>
+      <h1>Neurodivergence Trait Profile</h1>
+      <p class="lede">A structured questionnaire mapping measurable ADHD, autism-spectrum, sensory, learning and motor traits onto the dimensions used in validated instruments (ASRS, Vanderbilt, SNAP-IV, BDEFS/BRIEF, AQ, RAADS-R, CAT-Q, TAS-20, Sensory Profile, ARHQ, DCDQ). Every dimension is measured by at least three questions. It produces a profile, not a diagnosis.</p>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Choose form">
+        <button type="button" id="form-adult" data-form="adult" aria-pressed="true">Adult form (18+)</button>
+        <button type="button" id="form-child" data-form="child" aria-pressed="false">Child form (9–10, parent-rated)</button>
+      </div>
+      <div class="row-actions">
+        <button type="button" class="ghost" id="btn-example">Load example answers</button>
+        <button type="button" class="ghost" id="btn-clear">Clear answers</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="notice" id="example-notice" hidden>
+    <span><strong>You are looking at example answers,</strong> not your own. They show how the profile reads. Clear them to start the questionnaire.</span>
+    <button type="button" class="ghost" id="btn-clear-2">Clear and start</button>
+  </div>
+  <div class="notice" id="confirm-clear" hidden>
+    <span>Clear every answer on this form? This can’t be undone.</span>
+    <span class="row-actions"><button type="button" class="ghost" id="btn-clear-yes">Yes, clear</button><button type="button" class="ghost" id="btn-clear-no">Keep answers</button></span>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" id="tab-questions" aria-selected="true" data-tab="questions">Questionnaire</button>
+    <button type="button" role="tab" id="tab-profile" aria-selected="false" data-tab="profile">Profile</button>
+    <button type="button" role="tab" id="tab-method" aria-selected="false" data-tab="method">Method &amp; sources</button>
+  </div>
+
+  <section id="pane-questions" role="tabpanel" aria-labelledby="tab-questions">
+    <div class="progress"><div class="bar"><i id="prog-bar"></i></div><span class="count mono" id="prog-count"></span><button type="button" class="ghost" id="btn-to-profile">See profile</button></div>
+    <div style="display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;margin-top:16px">
+      <p class="fine" id="instructions" style="max-width:62ch"></p>
+      <label class="toggle"><input type="checkbox" id="show-src"> Show which dimension &amp; instrument each item measures</label>
+    </div>
+    <div id="questions"></div>
+    <div style="margin-top:24px"><button type="button" class="ghost" id="btn-to-profile-2">See my profile →</button></div>
+  </section>
+
+  <section id="pane-profile" role="tabpanel" aria-labelledby="tab-profile" hidden>
+    <div id="profile"></div>
+  </section>
+
+  <section id="pane-method" role="tabpanel" aria-labelledby="tab-method" hidden>
+    <div id="method" class="method"></div>
+  </section>
+
+  <p class="foot">This tool is for self-reflection and to structure a conversation with a qualified clinician. Items are paraphrased adaptations written around the constructs of the cited instruments (many of which are copyrighted); scores are not normed against a population sample and cannot be compared one-to-one with official cut-offs. A diagnosis of ADHD, autism, a specific learning disorder or DCD requires a clinical assessment, developmental history, evidence of impairment in more than one setting, and ruling out other explanations.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Instruments & references ---------- */
+const REFS = {
+  DSM5:   "American Psychiatric Association (2013; text rev. 2022). Diagnostic and Statistical Manual of Mental Disorders, 5th ed. (DSM-5-TR). ADHD criterion A1 (inattention) and A2 (hyperactivity–impulsivity); Autism Spectrum Disorder criteria A and B; Specific Learning Disorder; Developmental Coordination Disorder.",
+  ASRS:   "Kessler RC, Adler L, Ames M, et al. (2005). The World Health Organization Adult ADHD Self-Report Scale (ASRS): a short screening scale for use in the general population. Psychological Medicine, 35(2), 245–256.",
+  ASRS5:  "Ustun B, Adler LA, Rudin C, et al. (2017). The World Health Organization Adult Attention-Deficit/Hyperactivity Disorder Self-Report Screening Scale for DSM-5. JAMA Psychiatry, 74(5), 520–527.",
+  BAARS:  "Barkley RA (2011). Barkley Adult ADHD Rating Scale-IV (BAARS-IV). New York: Guilford Press.",
+  BDEFS:  "Barkley RA (2011). Barkley Deficits in Executive Functioning Scale (BDEFS). New York: Guilford Press. Five factors: time management, organisation/problem-solving, self-restraint, self-motivation, emotion regulation.",
+  BRIEF:  "Gioia GA, Isquith PK, Guy SC, Kenworthy L (2015). BRIEF-2: Behavior Rating Inventory of Executive Function, 2nd ed. Lutz, FL: PAR. Adult form: Roth RM, Isquith PK, Gioia GA (2005), BRIEF-A.",
+  BROWN:  "Brown TE (2019). Brown Executive Function/Attention Scales (Brown EF/A). Bloomington, MN: Pearson. Clusters: activation, focus, effort, emotion, memory, action.",
+  UPPS:   "Whiteside SP, Lynam DR (2001). The Five Factor Model and impulsivity: using a structural model of personality to understand impulsivity (UPPS). Personality and Individual Differences, 30(4), 669–689.",
+  VAND:   "Wolraich ML, Lambert W, Doffing MA, et al. (2003). Psychometric properties of the Vanderbilt ADHD Diagnostic Parent Rating Scale in a referred population. Journal of Pediatric Psychology, 28(8), 559–567.",
+  SNAP:   "Bussing R, Fernandez M, Harwood M, et al. (2008). Parent and teacher SNAP-IV ratings of attention deficit hyperactivity disorder symptoms: psychometric properties and normative ratings from a school district sample. Assessment, 15(3), 317–328.",
+  FARAONE:"Faraone SV, Rostain AL, Blader J, et al. (2019). Practitioner Review: Emotional dysregulation in attention-deficit/hyperactivity disorder — implications for clinical recognition and intervention. Journal of Child Psychology and Psychiatry, 60(2), 133–150.",
+  SHAW:   "Shaw P, Stringaris A, Nigg J, Leibenluft E (2014). Emotion dysregulation in attention deficit hyperactivity disorder. American Journal of Psychiatry, 171(3), 276–293.",
+  DERS:   "Gratz KL, Roemer L (2004). Multidimensional assessment of emotion regulation and dysregulation: development, factor structure, and initial validation of the Difficulties in Emotion Regulation Scale. Journal of Psychopathology and Behavioral Assessment, 26(1), 41–54.",
+  ARI:    "Stringaris A, Goodman R, Ferdinando S, et al. (2012). The Affective Reactivity Index: a concise irritability scale for clinical and research settings. Journal of Child Psychology and Psychiatry, 53(11), 1109–1117.",
+  RSQ:    "Downey G, Feldman SI (1996). Implications of rejection sensitivity for intimate relationships. Journal of Personality and Social Psychology, 70(6), 1327–1343.",
+  RSQC:   "Downey G, Lebolt A, Rincón C, Freitas AL (1998). Rejection sensitivity and children’s interpersonal difficulties. Child Development, 69(4), 1074–1091.",
+  BONDU:  "Bondü R, Esser G (2015). Justice and rejection sensitivity in children and adolescents with ADHD symptoms. European Child & Adolescent Psychiatry, 24(2), 185–198.",
+  AHQ:    "Hupfeld KE, Abagis TR, Shah P (2019). Living “in the zone”: hyperfocus in adult ADHD. ADHD Attention Deficit and Hyperactivity Disorders, 11(2), 191–208. (Adult Hyperfocus Questionnaire)",
+  HFREV:  "Ashinoff BK, Abu-Akel A (2021). Hyperfocus: the forgotten frontier of attention. Psychological Research, 85(1), 1–19.",
+  CDS:    "Becker SP, Willcutt EG, Leopold DR, et al. (2023). Report of a Work Group on Sluggish Cognitive Tempo: key research directions and a consensus change in terminology to Cognitive Disengagement Syndrome. Journal of the American Academy of Child & Adolescent Psychiatry, 62(6), 629–645.",
+  SCTMA:  "Becker SP, Leopold DR, Burns GL, et al. (2016). The internal, external, and diagnostic validity of sluggish cognitive tempo: a meta-analysis and critical review. JAACAP, 55(3), 163–178.",
+  SCTC:   "Penny AM, Waschbusch DA, Klein RM, Corkum P, Eskes G (2009). Developing a measure of sluggish cognitive tempo for children: content validity, factor structure, and reliability. Psychological Assessment, 21(3), 380–389.",
+  AQ:     "Baron-Cohen S, Wheelwright S, Skinner R, Martin J, Clubley E (2001). The Autism-Spectrum Quotient (AQ): evidence from Asperger syndrome/high-functioning autism, males and females, scientists and mathematicians. Journal of Autism and Developmental Disorders, 31(1), 5–17. Subscales: social skill, attention switching, attention to detail, communication, imagination.",
+  AQC:    "Auyeung B, Baron-Cohen S, Wheelwright S, Allison C (2008). The Autism Spectrum Quotient: Children’s Version (AQ-Child). Journal of Autism and Developmental Disorders, 38(7), 1230–1240.",
+  RAADS:  "Ritvo RA, Ritvo ER, Guthrie D, et al. (2011). The Ritvo Autism Asperger Diagnostic Scale-Revised (RAADS-R): a scale to assist the diagnosis of autism spectrum disorder in adults. Journal of Autism and Developmental Disorders, 41(8), 1076–1089.",
+  SCQ:    "Rutter M, Bailey A, Lord C (2003). The Social Communication Questionnaire (SCQ). Los Angeles: Western Psychological Services.",
+  SRS:    "Constantino JN, Gruber CP (2012). Social Responsiveness Scale, 2nd ed. (SRS-2). Los Angeles: Western Psychological Services.",
+  CATQ:   "Hull L, Mandy W, Lai M-C, et al. (2019). Development and validation of the Camouflaging Autistic Traits Questionnaire (CAT-Q). Journal of Autism and Developmental Disorders, 49(3), 819–833. Factors: compensation, masking, assimilation.",
+  WCC:    "Happé F, Frith U (2006). The weak coherence account: detail-focused cognitive style in autism spectrum disorders. Journal of Autism and Developmental Disorders, 36(1), 5–25.",
+  TAS:    "Bagby RM, Parker JDA, Taylor GJ (1994). The twenty-item Toronto Alexithymia Scale — I. Item selection and cross-validation of the factor structure. Journal of Psychosomatic Research, 38(1), 23–32.",
+  ALXA:   "Kinnaird E, Stewart C, Tchanturia K (2019). Investigating alexithymia in autism: a systematic review and meta-analysis. European Psychiatry, 55, 80–89.",
+  AQCh:   "Rieffe C, Oosterveld P, Terwogt MM (2006). An alexithymia questionnaire for children: factorial and concurrent validation results. Personality and Individual Differences, 40(1), 123–133.",
+  DUNN:   "Dunn W (1997). The impact of sensory processing abilities on the daily lives of young children and their families: a conceptual model. Infants & Young Children, 9(4), 23–35. Adult form: Brown C, Dunn W (2002), Adolescent/Adult Sensory Profile.",
+  SSP:    "McIntosh DN, Miller LJ, Shyu V, Dunn W (1999). Overview of the Short Sensory Profile (SSP). In W. Dunn, The Sensory Profile: Examiner’s Manual. San Antonio: Psychological Corporation.",
+  GSQ:    "Robertson AE, Simmons DR (2013). The relationship between sensory sensitivity and autistic traits in the general population. Journal of Autism and Developmental Disorders, 43(4), 775–784. (Glasgow Sensory Questionnaire)",
+  ARHQ:   "Lefly DL, Pennington BF (2000). Reliability and validity of the Adult Reading History Questionnaire. Journal of Learning Disabilities, 33(3), 286–296.",
+  ADCL:   "Vinegrad M (1994). A revised adult dyslexia checklist. Educare, 48, 21–23.",
+  CLDQ:   "Willcutt EG, Boada R, Riddle MW, et al. (2011). Colorado Learning Difficulties Questionnaire: validation of a parent-report screening measure. Psychological Assessment, 23(3), 778–791. Scales: reading, math, social cognition, social anxiety, spatial.",
+  ADC:    "Kirby A, Edwards L, Sugden D, Rosenblum S (2010). The development and standardization of the Adult Developmental Co-ordination Disorders/Dyspraxia Checklist (ADC). Research in Developmental Disabilities, 31(1), 131–139.",
+  DCDQ:   "Wilson BN, Crawford SG, Green D, et al. (2009). Psychometric properties of the revised Developmental Coordination Disorder Questionnaire (DCDQ’07). Physical & Occupational Therapy in Pediatrics, 29(2), 182–202.",
+  ASTLE:  "Astle DE, Holmes J, Kievit R, Gathercole SE (2022). Annual Research Review: The transdiagnostic revolution in neurodevelopmental disorders. Journal of Child Psychology and Psychiatry, 63(4), 397–417.",
+  ROMM:   "Rommelse NNJ, Franke B, Geurts HM, Hartman CA, Buitelaar JK (2010). Shared heritability of attention-deficit/hyperactivity disorder and autism spectrum disorder. European Child & Adolescent Psychiatry, 19(3), 281–295."
+};
+
+/* ---------- Item banks ----------
+   t: item text   r: reverse-scored   d: DSM-5 ADHD symptom ('IA' or 'HI')   a: ASRS Part A-style threshold */
+const ADULT = {
+  key:"adult", label:"Adult form", respondent:"yourself",
+  scale:["Never","Rarely","Sometimes","Often","Very often"], often:3, dsmCut:5,
+  instructions:"Answer for how you have usually been over the past 6 months — at work, at home and socially. If something was true in childhood but not now, answer for now. Takes about 15 minutes.",
+  domains:[
+   {id:"adhd", name:"Attention & activity", blurb:"The two DSM-5 ADHD symptom clusters. Each of the 18 DSM-5 symptoms has one item here, worded for adults following the WHO ASRS v1.1.", dims:[
+    {id:"ina", name:"Inattention", what:"Sustaining attention, careless errors, listening, follow-through, organising, effortful tasks, losing things, distractibility, forgetfulness.", src:["DSM5","ASRS","ASRS5","BAARS"], items:[
+      {t:"I make careless mistakes when work is boring or detailed — misreading numbers, skipping a line, missing a step.", d:"IA"},
+      {t:"My attention drifts during long meetings, reading or repetitive work, even when I want to keep following.", d:"IA"},
+      {t:"When someone speaks to me directly, I realise afterwards that I missed part of what they said.", d:"IA"},
+      {t:"Once the challenging part of a project is done, I have trouble wrapping up the final details.", d:"IA", a:2},
+      {t:"I have difficulty getting things in order when a task requires organisation.", d:"IA", a:2},
+      {t:"When a task needs a lot of sustained thinking (forms, reports, taxes), I avoid or delay getting started.", d:"IA", a:3},
+      {t:"I misplace everyday things such as keys, phone, wallet or important papers.", d:"IA"},
+      {t:"Background activity, noise or my own thoughts pull me away from what I am doing.", d:"IA"},
+      {t:"I forget appointments, errands or obligations unless something reminds me.", d:"IA", a:2}
+    ]},
+    {id:"hyp", name:"Hyperactivity & restlessness", what:"Fidgeting, staying seated, inner restlessness, relaxing quietly, feeling driven, talking a lot.", src:["DSM5","ASRS","BAARS"], items:[
+      {t:"I fidget or squirm with my hands or feet when I have to sit down for a long time.", d:"HI", a:3},
+      {t:"I get up and leave my seat in meetings or other situations where I’m expected to stay seated.", d:"HI"},
+      {t:"I feel restless inside, as if I need to be moving or doing something.", d:"HI"},
+      {t:"I find it hard to unwind and relax quietly when I have free time.", d:"HI"},
+      {t:"I feel overly active and compelled to do things, as if driven by a motor.", d:"HI", a:3},
+      {t:"I talk more than other people in social situations, or others tell me I talk too much.", d:"HI"}
+    ]},
+    {id:"imp", name:"Impulsivity", what:"Blurting, waiting, interrupting (DSM-5), plus acting without forethought and unfiltered speech.", src:["DSM5","ASRS","BAARS","UPPS"], items:[
+      {t:"I finish other people’s sentences or answer before they have finished asking.", d:"HI"},
+      {t:"I find it hard to wait my turn — in queues, traffic or conversations.", d:"HI"},
+      {t:"I interrupt people when they are busy or talking.", d:"HI"},
+      {t:"I make decisions or purchases on the spur of the moment that I later regret."},
+      {t:"I say things without thinking them through and later wish I hadn’t."}
+    ]}
+   ]},
+   {id:"ef", name:"Executive function", blurb:"Day-to-day self-management, following Barkley’s BDEFS factors and the BRIEF-A / Brown EF/A clusters. These are where adult ADHD most often causes impairment.", dims:[
+    {id:"tim", name:"Time management", what:"Estimating duration, sensing elapsed time, deadline-driven working.", src:["BDEFS","BROWN"], items:[
+      {t:"I underestimate how long things will take and end up running late."},
+      {t:"Deadlines don’t feel real until they are very close; I do most work at the last minute."},
+      {t:"I lose track of how much time has passed."}
+    ]},
+    {id:"org", name:"Planning & organisation", what:"Breaking down tasks, prioritising, keeping systems going.", src:["BDEFS","BRIEF","BROWN"], items:[
+      {t:"My desk, inbox or home gets disorganised faster than I can keep up with."},
+      {t:"I struggle to break a large project into steps and decide what to do first."},
+      {t:"Once I set up a plan, list or system, I keep using it for weeks.", r:1}
+    ]},
+    {id:"wm", name:"Working memory", what:"Holding information in mind while acting on it.", src:["BRIEF","BROWN","BDEFS"], items:[
+      {t:"I walk into a room or open a new window and forget what I came to do."},
+      {t:"I have trouble holding several steps, names or numbers in mind at once."},
+      {t:"While waiting for someone to finish talking, I forget what I was going to say."}
+    ]},
+    {id:"mot", name:"Task initiation & motivation", what:"Getting started without urgency, novelty or external pressure.", src:["BDEFS","BROWN"], items:[
+      {t:"I know exactly what I need to do but cannot make myself start."},
+      {t:"I need urgency, novelty, strong interest or someone else present to get going on routine tasks."},
+      {t:"I can start dull tasks without much effort.", r:1}
+    ]}
+   ]},
+   {id:"reg", name:"Emotion & arousal regulation", blurb:"Traits that are not DSM-5 criteria but are consistently measured alongside ADHD and autism in the research literature.", dims:[
+    {id:"emo", name:"Emotional reactivity", what:"Fast, intense emotion and slow recovery (emotional impulsiveness).", src:["FARAONE","SHAW","DERS","BDEFS"], items:[
+      {t:"Small frustrations make me lose my temper quickly."},
+      {t:"My emotions flare up fast and strongly, out of proportion to what happened."},
+      {t:"Once I’m upset, it takes me a long time to calm down."},
+      {t:"I stay calm when things don’t go my way.", r:1}
+    ]},
+    {id:"rsd", name:"Rejection sensitivity", what:"Anxious expectation of, and strong reaction to, rejection or criticism.", src:["RSQ","BONDU"], items:[
+      {t:"I worry in advance that people will reject me or be disappointed in me."},
+      {t:"Even mild criticism feels crushing and stays with me for a long time."},
+      {t:"I read a neutral message or someone’s silence as a sign they are annoyed with me."}
+    ]},
+    {id:"hf", name:"Hyperfocus", what:"Intense absorption that is hard to interrupt or exit.", src:["AHQ","HFREV"], items:[
+      {t:"I get so absorbed in something interesting that I don’t notice time passing or people calling me."},
+      {t:"I skip meals, sleep or other obligations because I’m locked into an activity."},
+      {t:"Once I am deeply focused, it is hard to pull myself out and switch to something else."}
+    ]},
+    {id:"cds", name:"Cognitive disengagement", what:"Daydreaming, mental fog, staring, slowness (formerly ‘sluggish cognitive tempo’).", src:["CDS","SCTMA"], items:[
+      {t:"I daydream or get lost in my thoughts instead of attending to what is in front of me."},
+      {t:"My thinking feels slow or foggy, as if my mind is in a haze."},
+      {t:"I ‘zone out’ and stare into space without noticing."},
+      {t:"I feel sluggish or low on energy compared with others, even when I’ve slept."}
+    ]},
+    {id:"alx", name:"Emotional awareness (alexithymia)", what:"Identifying and describing feelings; telling emotions from body sensations.", src:["TAS","ALXA"], items:[
+      {t:"I find it hard to identify exactly what I am feeling."},
+      {t:"I find it hard to describe my feelings to other people."},
+      {t:"When I’m emotional I can’t tell body signals apart — is this hunger, anxiety, tiredness or anger?"}
+    ]}
+   ]},
+   {id:"asd", name:"Social communication & thinking style", blurb:"The autism-spectrum dimensions: DSM-5 criterion A (social communication) and B (restricted/repetitive patterns), measured through the AQ subscales, RAADS-R and CAT-Q. Several items are reverse-worded, as in the AQ, to reduce agreement bias.", dims:[
+    {id:"soc", name:"Conversation & non-verbal communication", what:"Reciprocal conversation, turn-taking, eye contact, tone and gesture.", src:["AQ","RAADS","DSM5"], items:[
+      {t:"I find it hard to know when it’s my turn to speak or how to keep a conversation going."},
+      {t:"People tell me I keep talking about something without noticing they are losing interest."},
+      {t:"I find small talk easy and enjoyable.", r:1},
+      {t:"I have to think consciously about how much eye contact, facial expression or tone of voice to use."}
+    ]},
+    {id:"soi", name:"Social intuition", what:"Reading intentions, feelings and unwritten rules (social skill / theory of mind).", src:["AQ","RAADS","SRS"], items:[
+      {t:"I can tell what someone is thinking or feeling just by looking at their face.", r:1},
+      {t:"I find it hard to work out people’s intentions or the unwritten rules of a social situation."},
+      {t:"I don’t notice when someone is bored, is hinting at something, or wants to end the conversation."},
+      {t:"Socialising leaves me drained even when it went well."}
+    ]},
+    {id:"rou", name:"Routines & flexibility", what:"Insistence on sameness, attention switching, coping with change.", src:["AQ","DSM5","BRIEF"], items:[
+      {t:"Unexpected changes to plans upset me more than they seem to upset other people."},
+      {t:"I prefer to do things the same way every time — the same route, meals or order of steps."},
+      {t:"I can easily switch back and forth between different activities.", r:1},
+      {t:"If I’m interrupted, it is hard for me to get back to what I was doing."}
+    ]},
+    {id:"det", name:"Detail & pattern focus", what:"Local, detail-first processing and attraction to systems.", src:["AQ","WCC"], items:[
+      {t:"I notice small details, number patterns or changes that others miss."},
+      {t:"I am drawn to patterns, systems, categories or how things work."},
+      {t:"I usually concentrate on the whole picture rather than the small details.", r:1}
+    ]},
+    {id:"int", name:"Focused interests", what:"Intensity and narrowness of interests (DSM-5 B3).", src:["DSM5","RAADS","AQ"], items:[
+      {t:"I have one or a few intense interests that take up much of my thinking and free time."},
+      {t:"I collect detailed information about the things that interest me — facts, specifications, lists."},
+      {t:"I find it hard to engage with topics outside my interests, even when it is socially expected."}
+    ]},
+    {id:"lit", name:"Literal & imaginative thinking", what:"Figurative language, inferring characters’ intentions, pretending.", src:["AQ","RAADS"], items:[
+      {t:"I take figures of speech, sarcasm or jokes literally at first."},
+      {t:"When I read a story, I find it hard to work out the characters’ intentions."},
+      {t:"I find it easy to imagine what it would be like to be someone else.", r:1}
+    ]},
+    {id:"cam", name:"Social camouflaging", what:"Masking, compensating and assimilating to hide social differences.", src:["CATQ"], items:[
+      {t:"In social situations I monitor and adjust my face, voice and body language so I come across as ‘normal’."},
+      {t:"I have learned social skills by studying or copying other people, TV or books."},
+      {t:"I feel I am performing or pretending in order to fit in."}
+    ]}
+   ]},
+   {id:"sens", name:"Sensory processing", blurb:"Dunn’s model separates high-threshold (seeking, low registration) from low-threshold (sensitivity, avoiding) patterns. Sensory differences are DSM-5 autism criterion B4 and are common in ADHD.", dims:[
+    {id:"sen", name:"Sensory sensitivity & avoiding", what:"Low threshold: sounds, light, touch, smell, crowds.", src:["DUNN","GSQ","DSM5"], items:[
+      {t:"Everyday noises — chewing, humming, ticking, crowds — are distressing or hard to tune out."},
+      {t:"Bright or flickering light, strong smells, or certain fabrics and clothing labels bother me a lot."},
+      {t:"Busy places such as shopping centres or parties overwhelm me quickly."},
+      {t:"I avoid or leave places because of the noise, light, touch or smell."}
+    ]},
+    {id:"sek", name:"Sensory seeking & low registration", what:"High threshold: seeking intense input, missing signals, low interoception.", src:["DUNN","GSQ"], items:[
+      {t:"I seek out intense sensations — loud music, very spicy food, strong movement or deep pressure."},
+      {t:"I miss things others notice, like my name being called or someone touching my shoulder."},
+      {t:"I don’t notice hunger, thirst, pain or temperature until it’s extreme."},
+      {t:"I move, fiddle, touch things or make sounds to keep myself alert or calm."}
+    ]}
+   ]},
+   {id:"lm", name:"Learning & motor", blurb:"Specific learning disorders (reading, mathematics) and developmental coordination disorder co-occur with ADHD and autism far more than chance.", dims:[
+    {id:"rea", name:"Reading & spelling", what:"Reading speed/accuracy, letter/number sequencing, spelling (dyslexia traits).", src:["ARHQ","ADCL","DSM5"], items:[
+      {t:"I read more slowly than others or need to re-read passages to understand them."},
+      {t:"I mix up the order of letters or numbers, or lose my place on the page."},
+      {t:"Spelling is difficult for me, even for words I use often."},
+      {t:"Reading aloud is uncomfortable because I stumble over words."}
+    ]},
+    {id:"num", name:"Number processing", what:"Arithmetic fluency, magnitude/time estimation, multi-step calculation (dyscalculia traits).", src:["DSM5","CLDQ"], items:[
+      {t:"Mental arithmetic — working out change, a tip or splitting a bill — is hard, even with simple numbers."},
+      {t:"I struggle to estimate quantities or distances, or to read an analogue clock quickly."},
+      {t:"I lose track of the steps in a calculation or which operation to use."}
+    ]},
+    {id:"mtr", name:"Motor coordination", what:"Gross motor, fine motor/handwriting, motor learning (DCD / dyspraxia traits).", src:["ADC","DSM5"], items:[
+      {t:"I’m clumsy — I bump into things, trip or drop things more than others."},
+      {t:"My handwriting is slow, untidy or tiring."},
+      {t:"Learning physical skills (sports, dance steps, driving) took me noticeably longer than my peers."}
+    ]}
+   ]}
+  ],
+  composites:[
+    {id:"c-adhd", name:"ADHD core index", desc:"Inattention, hyperactivity and impulsivity (DSM-5 criterion A).", dims:["ina","hyp","imp"]},
+    {id:"c-ef", name:"Executive-function load", desc:"Time, organisation, working memory, initiation.", dims:["tim","org","wm","mot"]},
+    {id:"c-reg", name:"Regulation & arousal index", desc:"Emotional reactivity, rejection sensitivity, hyperfocus, disengagement.", dims:["emo","rsd","hf","cds"]},
+    {id:"c-asd", name:"Autism-spectrum index", desc:"Social communication, social intuition, routines, detail focus, interests, literal thinking, camouflaging, sensory sensitivity.", dims:["soc","soi","rou","det","int","lit","cam","sen"]},
+    {id:"c-lm", name:"Learning & motor index", desc:"Reading, number processing, motor coordination.", dims:["rea","num","mtr"]},
+    {id:"c-all", name:"Overall neurodivergence index", desc:"Mean of every dimension on the form — a transdiagnostic summary.", dims:"*", overall:true}
+  ]
+};
+
+const CHILD = {
+  key:"child", label:"Child form (9–10)", respondent:"your child",
+  scale:["Never","Occasionally","Often","Very often"], often:2, dsmCut:6,
+  instructions:"For a parent or caregiver who knows the child well. Rate how the child has behaved over the past 6 months compared with other children of the same age. If you can, fill it in together with the child and ask a teacher to complete a copy — ADHD symptoms must be present in two or more settings. Takes about 15 minutes.",
+  domains:[
+   {id:"adhd", name:"Attention & activity", blurb:"The 18 DSM-5 ADHD symptoms, in parent-report wording as used by the NICHQ Vanderbilt and SNAP-IV scales.", dims:[
+    {id:"ina", name:"Inattention", what:"Details, sustained attention, listening, follow-through, organising, effortful tasks, losing things, distractibility, forgetfulness.", src:["DSM5","VAND","SNAP"], items:[
+      {t:"Makes careless mistakes in schoolwork or doesn’t pay attention to details.", d:"IA"},
+      {t:"Has trouble keeping attention on tasks or play, such as homework, reading or board games.", d:"IA"},
+      {t:"Doesn’t seem to listen when spoken to directly — you often have to repeat yourself.", d:"IA"},
+      {t:"Doesn’t follow through on instructions and fails to finish homework or chores (not because of refusal or not understanding).", d:"IA"},
+      {t:"Has trouble organising tasks and belongings — schoolbag, desk, bedroom.", d:"IA"},
+      {t:"Avoids, dislikes or resists tasks that need sustained mental effort, like homework.", d:"IA"},
+      {t:"Loses things needed for school or activities — pencils, books, jumper, water bottle.", d:"IA"},
+      {t:"Is easily distracted by noises, other people or things going on nearby.", d:"IA"},
+      {t:"Is forgetful in daily routines — brushing teeth, bringing homework home, packing sports kit.", d:"IA"}
+    ]},
+    {id:"hyp", name:"Hyperactivity", what:"Fidgeting, staying seated, running/climbing, quiet play, being on the go, talking a lot.", src:["DSM5","VAND","SNAP"], items:[
+      {t:"Fidgets with hands or feet or squirms in their seat.", d:"HI"},
+      {t:"Leaves their seat when expected to stay seated — at meals, in class.", d:"HI"},
+      {t:"Runs about or climbs on things when it isn’t appropriate.", d:"HI"},
+      {t:"Has difficulty playing or doing leisure activities quietly.", d:"HI"},
+      {t:"Is ‘on the go’ or acts as if ‘driven by a motor’.", d:"HI"},
+      {t:"Talks excessively.", d:"HI"}
+    ]},
+    {id:"imp", name:"Impulsivity", what:"Blurting, waiting, interrupting, acting before thinking.", src:["DSM5","VAND","SNAP"], items:[
+      {t:"Blurts out answers before questions have been completed.", d:"HI"},
+      {t:"Has difficulty waiting their turn in games or queues.", d:"HI"},
+      {t:"Interrupts or intrudes on others — butts into conversations or games.", d:"HI"},
+      {t:"Acts without thinking about what might happen, such as running into the road or grabbing things."}
+    ]}
+   ]},
+   {id:"ef", name:"Executive function", blurb:"Everyday self-management scales modelled on the BRIEF-2 parent form (working memory, plan/organise, task initiation).", dims:[
+    {id:"wm", name:"Working memory", what:"Holding instructions and goals in mind.", src:["BRIEF"], items:[
+      {t:"Forgets what they were sent to do — goes to fetch something and comes back empty-handed."},
+      {t:"Has trouble remembering instructions that have more than two steps."},
+      {t:"Forgets what they were doing partway through a task."}
+    ]},
+    {id:"org", name:"Planning, time & organisation", what:"Breaking down projects, estimating time, keeping materials in order.", src:["BRIEF","BDEFS"], items:[
+      {t:"Underestimates how long homework or projects take and leaves them to the last minute."},
+      {t:"Can’t get started on a multi-step project unless an adult breaks it into steps."},
+      {t:"Keeps their things and schoolwork organised without reminders.", r:1}
+    ]},
+    {id:"ini", name:"Task initiation", what:"Getting started without prompting, reward or novelty.", src:["BRIEF","BROWN"], items:[
+      {t:"Needs to be told to start a task even when they are willing to do it."},
+      {t:"Only gets going when a task is interesting, new, or there’s an immediate reward."},
+      {t:"Starts homework or chores on their own.", r:1}
+    ]}
+   ]},
+   {id:"reg", name:"Emotion & arousal regulation", blurb:"Associated traits consistently measured alongside ADHD and autism in children.", dims:[
+    {id:"emo", name:"Emotional reactivity", what:"Irritability, intensity and recovery time.", src:["ARI","BRIEF","FARAONE"], items:[
+      {t:"Gets very upset or has a meltdown over small things."},
+      {t:"Their temper flares quickly and intensely."},
+      {t:"Takes a long time to calm down after being upset."},
+      {t:"Bounces back quickly when something doesn’t go their way.", r:1}
+    ]},
+    {id:"rsd", name:"Rejection sensitivity", what:"Expecting and over-reacting to rejection or criticism.", src:["RSQC","BONDU"], items:[
+      {t:"Worries that other children don’t like them or will leave them out."},
+      {t:"Is very hurt by mild teasing or correction and stays upset about it."},
+      {t:"Assumes others are angry with them when they aren’t."}
+    ]},
+    {id:"hf", name:"Hyperfocus", what:"Intense absorption that is hard to interrupt.", src:["AHQ","HFREV"], items:[
+      {t:"Gets so absorbed in games, screens or hobbies that they don’t hear you call."},
+      {t:"Is very hard to pull away from an activity they enjoy, even for meals or bedtime."},
+      {t:"Can concentrate for hours on something they love, even though focusing is hard otherwise."}
+    ]},
+    {id:"cds", name:"Cognitive disengagement", what:"Daydreaming, fogginess, staring, slowness.", src:["SCTC","CDS"], items:[
+      {t:"Daydreams or seems lost in their own thoughts."},
+      {t:"Seems ‘in a fog’ or mentally confused."},
+      {t:"Stares blankly into space."},
+      {t:"Moves or works slowly; seems sluggish or tired."}
+    ]},
+    {id:"alx", name:"Emotional awareness", what:"Recognising and naming feelings; body-signal confusion.", src:["AQCh","ALXA"], items:[
+      {t:"Has trouble telling you what they are feeling (says ‘I don’t know’ or just ‘bad’)."},
+      {t:"Seems confused about whether they are hungry, tired, ill or upset."},
+      {t:"Can explain their feelings in words when asked.", r:1}
+    ]}
+   ]},
+   {id:"asd", name:"Social communication & thinking style", blurb:"Autism-spectrum dimensions following the AQ-Child subscales, SCQ and SRS-2, and DSM-5 criteria A and B. Some items are reverse-worded.", dims:[
+    {id:"soc", name:"Conversation & non-verbal communication", what:"Back-and-forth talk, gesture, eye contact, unusual speech.", src:["AQC","SCQ","DSM5"], items:[
+      {t:"Has trouble keeping up a back-and-forth conversation with other children."},
+      {t:"Talks at length about their own topic without noticing whether others are interested."},
+      {t:"Uses gestures, facial expressions and eye contact naturally when talking.", r:1},
+      {t:"Speaks in an unusual way — overly formal, flat or sing-song tone, or repeating phrases from shows."}
+    ]},
+    {id:"soi", name:"Social intuition", what:"Friendships, reading feelings, unwritten rules.", src:["AQC","SRS","SCQ"], items:[
+      {t:"Finds it hard to make friends or to join in with other children’s play."},
+      {t:"Doesn’t pick up on how others feel unless told — for example, doesn’t notice a friend is sad."},
+      {t:"Easily understands the unwritten rules of the playground or classroom.", r:1},
+      {t:"Prefers to play alone or with adults rather than with children their own age."}
+    ]},
+    {id:"rou", name:"Routines & flexibility", what:"Insistence on sameness and shifting between activities.", src:["AQC","DSM5","BRIEF"], items:[
+      {t:"Gets very upset by small changes in routine or plans."},
+      {t:"Insists on doing things in a particular way or order."},
+      {t:"Moves easily from one activity to another when asked.", r:1},
+      {t:"Has trouble letting go of a mistake, a disagreement or a change of plan."}
+    ]},
+    {id:"det", name:"Detail & pattern focus", what:"Noticing details, sorting, systemising.", src:["AQC","WCC"], items:[
+      {t:"Notices small details or patterns others miss, such as number plates or small changes in a room."},
+      {t:"Likes to line up, sort or categorise objects or information."},
+      {t:"Tends to notice the whole picture rather than the small details.", r:1}
+    ]},
+    {id:"int", name:"Focused interests", what:"Intensity and narrowness of interests.", src:["DSM5","SCQ","AQC"], items:[
+      {t:"Has an intense interest in one topic (e.g. trains, dinosaurs, a particular game) that dominates their conversation."},
+      {t:"Knows an unusual amount of detail or facts about a specific topic."},
+      {t:"Has trouble showing interest in activities that aren’t their favourite."}
+    ]},
+    {id:"lit", name:"Literal & imaginative thinking", what:"Figurative language, jokes, pretend play.", src:["AQC","SCQ"], items:[
+      {t:"Takes things literally — confused by sayings like ‘pull your socks up’ or by sarcasm."},
+      {t:"Finds it hard to understand jokes or friendly teasing."},
+      {t:"Enjoys pretend play or making up stories with others.", r:1}
+    ]}
+   ]},
+   {id:"sens", name:"Sensory processing", blurb:"Modelled on the Short Sensory Profile and Dunn’s quadrant model.", dims:[
+    {id:"sen", name:"Sensory sensitivity & avoiding", what:"Sound, touch, taste/smell, crowds.", src:["SSP","DUNN","DSM5"], items:[
+      {t:"Is bothered by everyday noises (hand dryers, vacuum cleaner, loud voices) or covers their ears."},
+      {t:"Reacts strongly to clothing textures, labels, haircuts, nail cutting or being touched."},
+      {t:"Is a picky eater because of the taste, texture or smell of foods."},
+      {t:"Becomes overwhelmed in noisy, busy places such as parties or shopping centres."}
+    ]},
+    {id:"sek", name:"Sensory seeking & low registration", what:"Seeking movement, missing signals, low pain/temperature response, stimming.", src:["SSP","DUNN"], items:[
+      {t:"Seeks a lot of movement — spinning, jumping, crashing into things."},
+      {t:"Doesn’t seem to notice when their name is called or when their face or hands are messy."},
+      {t:"Seems not to notice pain, cold or heat very much."},
+      {t:"Makes noises, flaps hands, rocks or fiddles to stay calm or focused."}
+    ]}
+   ]},
+   {id:"lm", name:"Learning & motor", blurb:"Reading and maths scales follow the Colorado Learning Difficulties Questionnaire; motor items follow the DCDQ’07.", dims:[
+    {id:"rea", name:"Reading & spelling", what:"Reading accuracy and speed, decoding, spelling.", src:["CLDQ","DSM5"], items:[
+      {t:"Reads more slowly or less accurately than classmates."},
+      {t:"Has trouble sounding out unfamiliar words."},
+      {t:"Makes many spelling mistakes, even on words they have practised."},
+      {t:"Still often mixes up letters such as b/d or p/q."}
+    ]},
+    {id:"num", name:"Number processing", what:"Number facts, counting strategies, time/money/magnitude.", src:["CLDQ","DSM5"], items:[
+      {t:"Has trouble learning or remembering number facts (times tables, simple sums)."},
+      {t:"Still counts on fingers when classmates have stopped."},
+      {t:"Struggles with telling the time, handling money, or judging which number is bigger."}
+    ]},
+    {id:"mtr", name:"Motor coordination", what:"Fine motor/handwriting, general coordination, motor learning.", src:["DCDQ","DSM5"], items:[
+      {t:"Handwriting is slow, messy or effortful compared with classmates."},
+      {t:"Is clumsy — trips, bumps into things, knocks things over."},
+      {t:"Has trouble learning skills such as catching a ball, riding a bike or tying shoelaces."}
+    ]}
+   ]},
+   {id:"co", name:"Co-occurring behaviour", blurb:"Screened in the Vanderbilt parent scale because it often accompanies ADHD. It is not a neurodivergent trait and is shown separately — it is excluded from every index.", dims:[
+    {id:"opp", name:"Oppositional behaviour", what:"Arguing, refusing, blaming, annoying (DSM-5 ODD items).", src:["VAND","DSM5"], coOccurring:true, items:[
+      {t:"Argues with adults."},
+      {t:"Actively refuses to follow adults’ requests or rules."},
+      {t:"Blames others for their own mistakes or behaviour."},
+      {t:"Deliberately annoys people."}
+    ]}
+   ]}
+  ],
+  composites:[
+    {id:"c-adhd", name:"ADHD core index", desc:"Inattention, hyperactivity and impulsivity (DSM-5 criterion A).", dims:["ina","hyp","imp"]},
+    {id:"c-ef", name:"Executive-function load", desc:"Working memory, planning/time, task initiation.", dims:["wm","org","ini"]},
+    {id:"c-reg", name:"Regulation & arousal index", desc:"Emotional reactivity, rejection sensitivity, hyperfocus, disengagement.", dims:["emo","rsd","hf","cds"]},
+    {id:"c-asd", name:"Autism-spectrum index", desc:"Social communication, social intuition, routines, detail focus, interests, literal thinking, sensory sensitivity.", dims:["soc","soi","rou","det","int","lit","sen"]},
+    {id:"c-lm", name:"Learning & motor index", desc:"Reading, number processing, motor coordination.", dims:["rea","num","mtr"]},
+    {id:"c-all", name:"Overall neurodivergence index", desc:"Mean of every dimension except co-occurring behaviour — a transdiagnostic summary.", dims:"*", overall:true}
+  ]
+};
+
+const FORMS = {adult:ADULT, child:CHILD};
+const BANDS = [
+  {to:30, name:"Typical range"},
+  {to:50, name:"Some traits"},
+  {to:70, name:"Elevated"},
+  {to:101, name:"Pronounced"}
+];
+const EXAMPLE_LEVELS = {
+  adult:{ina:.78,hyp:.5,imp:.6,tim:.82,org:.7,wm:.72,mot:.8,emo:.58,rsd:.66,hf:.76,cds:.45,alx:.35,soc:.3,soi:.32,rou:.42,det:.55,int:.6,lit:.2,cam:.45,sen:.52,sek:.5,rea:.18,num:.32,mtr:.3},
+  child:{ina:.72,hyp:.62,imp:.66,wm:.7,org:.68,ini:.74,emo:.6,rsd:.5,hf:.72,cds:.35,alx:.4,soc:.3,soi:.28,rou:.45,det:.4,int:.55,lit:.25,sen:.5,sek:.55,rea:.3,num:.25,mtr:.42,opp:.35}
+};
+
+/* index items */
+for (const f of Object.values(FORMS)){
+  f.dimList=[]; f.itemList=[]; let n=0;
+  for (const dom of f.domains) for (const dim of dom.dims){
+    dim.domain=dom; f.dimList.push(dim);
+    dim.items.forEach((it,i)=>{ it.id=dim.id+(i+1); it.dim=dim; it.n=++n; f.itemList.push(it); });
+  }
+  f.max=f.scale.length-1;
+}
+
+/* ---------- State ---------- */
+const store = {
+  get(k){ try{ return JSON.parse(localStorage.getItem(k)||"null"); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+};
+let formKey = (store.get("ndp:form")||"adult");
+if (!FORMS[formKey]) formKey="adult";
+const state = {};
+function exampleAnswers(key){
+  const f=FORMS[key], lv=EXAMPLE_LEVELS[key], a={};
+  let s=key==="adult"?7:11;
+  const rnd=()=>{ s=(s*16807)%2147483647; return s/2147483647; };
+  for (const it of f.itemList){
+    const L=lv[it.dim.id] ?? .3;
+    let v=Math.round(L*f.max + (rnd()-.5)*1.6);
+    v=Math.max(0,Math.min(f.max,v));
+    a[it.id]= it.r ? f.max-v : v;
+  }
+  return a;
+}
+function load(key){
+  const saved=store.get("ndp:"+key);
+  state[key]= saved && saved.answers ? saved : {answers:exampleAnswers(key), example:true};
+}
+function save(){ store.set("ndp:"+formKey,state[formKey]); }
+load("adult"); load("child");
+
+/* ---------- Scoring ---------- */
+const scoreOf=(f,it,v)=> it.r ? f.max-v : v;
+function dimScore(f,dim,ans){
+  let sum=0,n=0;
+  for (const it of dim.items){ const v=ans[it.id]; if (v==null) continue; sum+=scoreOf(f,it,v); n++; }
+  return {n, total:dim.items.length, pct: n ? sum/(n*f.max)*100 : null};
+}
+const band=p=> p==null? null : BANDS.find(b=>p<b.to).name;
+function compute(){
+  const f=FORMS[formKey], ans=state[formKey].answers, dims={};
+  for (const d of f.dimList) dims[d.id]=dimScore(f,d,ans);
+  const comps=f.composites.map(c=>{
+    const ids = c.dims==="*" ? f.dimList.filter(d=>!d.coOccurring).map(d=>d.id) : c.dims;
+    const vals=ids.map(i=>dims[i].pct).filter(v=>v!=null);
+    return {...c, pct: vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null, have:vals.length, of:ids.length};
+  });
+  const dsm={IA:0,HI:0,IAn:0,HIn:0};
+  let asrs=0, asrsN=0, asrsAnswered=0;
+  for (const it of f.itemList){
+    const v=ans[it.id];
+    if (it.d){ dsm[it.d+"n"]++; if (v!=null && v>=f.often) dsm[it.d]++; }
+    if (it.a){ asrsN++; if (v!=null){ asrsAnswered++; if (v>=it.a) asrs++; } }
+  }
+  return {dims,comps,dsm,asrs,asrsN,asrsAnswered};
+}
+
+/* ---------- Render: questionnaire ---------- */
+const $=s=>document.querySelector(s);
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function srcNames(keys){ return keys.map(k=>({DSM5:"DSM-5-TR",ASRS:"ASRS v1.1",ASRS5:"ASRS-5",BAARS:"BAARS-IV",BDEFS:"BDEFS",BRIEF:"BRIEF-2/BRIEF-A",BROWN:"Brown EF/A",UPPS:"UPPS-P",VAND:"Vanderbilt",SNAP:"SNAP-IV",FARAONE:"Faraone 2019",SHAW:"Shaw 2014",DERS:"DERS",ARI:"ARI",RSQ:"RSQ",RSQC:"Children’s RSQ",BONDU:"Bondü & Esser 2015",AHQ:"AHQ",HFREV:"Ashinoff 2021",CDS:"CDS work group 2023",SCTMA:"Becker 2016",SCTC:"Penny 2009 SCT",AQ:"AQ",AQC:"AQ-Child",RAADS:"RAADS-R",SCQ:"SCQ",SRS:"SRS-2",CATQ:"CAT-Q",WCC:"Happé & Frith 2006",TAS:"TAS-20",ALXA:"Kinnaird 2019",AQCh:"AQC (alexithymia)",DUNN:"Sensory Profile",SSP:"Short Sensory Profile",GSQ:"GSQ",ARHQ:"ARHQ",ADCL:"Vinegrad checklist",CLDQ:"Colorado LDQ",ADC:"ADC",DCDQ:"DCDQ’07"}[k]||k)).join(" · "); }
+
+function renderQuestions(){
+  const f=FORMS[formKey], ans=state[formKey].answers;
+  $("#instructions").textContent=f.instructions;
+  let h="";
+  for (const dom of f.domains){
+    h+=`<section class="domain"><header><p class="eyebrow">${esc(dom.dims.length)} dimension${dom.dims.length>1?"s":""} · ${dom.dims.reduce((a,d)=>a+d.items.length,0)} items</p><h2>${esc(dom.name)}</h2><p>${esc(dom.blurb)}</p></header><div>`;
+    for (const dim of dom.dims) for (const it of dim.items){
+      const v=ans[it.id];
+      h+=`<div class="q${v==null?" unanswered":""}" id="q-${it.id}"><div class="qt"><span class="qn">${formKey==="adult"?"Q":"C"}${it.n}</span><span>${esc(it.t)}</span><span class="src">${esc(dim.name)}${it.r?" · reverse-scored":""}${it.d?" · DSM-5 "+(it.d==="IA"?"inattention":"hyperactivity–impulsivity")+" symptom":""}${it.a?" · ASRS Part A item":""} — ${esc(srcNames(dim.src))}</span></div><div class="opts" role="radiogroup" aria-label="${esc(it.t)}">`;
+      f.scale.forEach((lab,i)=>{
+        const id=`${formKey}-${it.id}-${i}`;
+        h+=`<input type="radio" name="${formKey}-${it.id}" id="${id}" value="${i}"${v===i?" checked":""}><label for="${id}">${esc(lab)}</label>`;
+      });
+      h+=`</div></div>`;
+    }
+    h+=`</div></section>`;
+  }
+  $("#questions").innerHTML=h;
+  updateProgress();
+}
+function updateProgress(){
+  const f=FORMS[formKey], ans=state[formKey].answers;
+  const n=f.itemList.filter(it=>ans[it.id]!=null).length;
+  $("#prog-bar").style.width=(n/f.itemList.length*100)+"%";
+  $("#prog-count").textContent=`${n} / ${f.itemList.length} answered`;
+  $("#example-notice").hidden=!state[formKey].example;
+}
+$("#questions").addEventListener("change",e=>{
+  const t=e.target; if (t.type!=="radio") return;
+  const id=t.name.slice(formKey.length+1);
+  if (state[formKey].example){ state[formKey]={answers:{},example:false}; renderQuestions(); document.getElementById(t.id).checked=true; }
+  state[formKey].answers[id]=+t.value;
+  document.getElementById("q-"+id)?.classList.remove("unanswered");
+  save(); updateProgress();
+});
+
+/* ---------- Render: profile ---------- */
+function meter(pct,small){
+  const w=[30,20,20,30].map(x=>`<i style="width:calc(${x}% - 1.5px)"></i>`).join("");
+  return `<div class="meter${small?" small":""}${pct==null?" empty":""}" ${pct!=null?`title="${pct.toFixed(0)} / 100 · ${band(pct)}"`:""}><div class="bands">${w}</div>${pct!=null?`<span class="pin" style="left:${Math.max(0,Math.min(100,pct))}%"></span>`:""}</div>`;
+}
+const AXIS=`<div class="axis"><span style="left:0">0</span><span style="left:30%">30</span><span style="left:50%">50</span><span style="left:70%">70</span><span style="left:100%">100</span></div>`;
+const LEGEND=`<div class="legend">${BANDS.map((b,i)=>`<span><i style="background:var(--b${i})"></i>${b.name} <span class="mono">${[ "0–29","30–49","50–69","70–100"][i]}</span></span>`).join("")}</div>`;
+
+function renderProfile(){
+  const f=FORMS[formKey], r=compute(), st=state[formKey];
+  const answered=f.itemList.filter(it=>st.answers[it.id]!=null).length;
+  let h="";
+  h+=`<div class="section"><p class="eyebrow">${esc(f.label)} · ${answered} of ${f.itemList.length} items answered${st.example?" · example answers":""}</p>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:end;margin-top:6px"><h2>Cumulative indices</h2><span class="row-actions"><button type="button" class="ghost" id="btn-copy">Copy results as text</button><span class="status" id="copy-status" role="status"></span></span></div>
+  <p class="fine" style="margin-top:6px;max-width:70ch">Each index is the average position (0–100) of its dimensions. 0 means every item answered at the lowest level, 100 the highest. Bands are anchored to the response labels, not to population norms.</p>
+  <div class="panel composites" style="margin-top:14px">`;
+  for (const c of r.comps){
+    h+=`<div class="comp"><div><div class="name">${esc(c.name)}</div><div class="desc">${esc(c.desc)}</div></div><div class="meter-wrap">${meter(c.pct)}${c.overall?AXIS:""}</div><div class="val">${c.pct==null?`<b>—</b><span>no answers</span>`:`<b>${c.pct.toFixed(0)}</b><span>${band(c.pct)}</span>`}</div></div>`;
+  }
+  h+=`${LEGEND}</div></div>`;
+
+  // Screening rules
+  const cut=f.dsmCut, oftenLab=f.scale[f.often];
+  const ia=r.dsm.IA, hi=r.dsm.HI;
+  const pres = ia>=cut&&hi>=cut ? "Combined pattern" : ia>=cut ? "Predominantly inattentive pattern" : hi>=cut ? "Predominantly hyperactive–impulsive pattern" : "Below symptom-count threshold";
+  h+=`<div class="section"><h2>Criterion-based screens</h2><p class="fine" style="margin-top:6px;max-width:70ch">These apply the documented counting rules of the source instruments to the matching items. A symptom counts when rated “${esc(oftenLab)}” or higher.</p><div class="screens" style="margin-top:14px">
+   <div class="screen"><span class="eyebrow">DSM-5 inattention symptoms</span><span class="big">${ia}<span class="fine"> / 9</span></span><span class="chip${ia>=cut?" hit":""}">${ia>=cut?"At or above threshold":"Below threshold"}</span><span class="fine">Threshold: ${cut} of 9 ${formKey==="adult"?"(age 17+)":"(under 17)"}.</span></div>
+   <div class="screen"><span class="eyebrow">DSM-5 hyperactive–impulsive symptoms</span><span class="big">${hi}<span class="fine"> / 9</span></span><span class="chip${hi>=cut?" hit":""}">${hi>=cut?"At or above threshold":"Below threshold"}</span><span class="fine">Threshold: ${cut} of 9. Pattern: <strong>${pres}</strong>.</span></div>`;
+  if (formKey==="adult"){
+    const pos=r.asrs>=4;
+    h+=`<div class="screen"><span class="eyebrow">ASRS v1.1 Part A rule</span><span class="big">${r.asrs}<span class="fine"> / ${r.asrsN}</span></span><span class="chip${pos?" hit":""}">${pos?"Screen-positive pattern":"Screen-negative pattern"}</span><span class="fine">Six items with item-specific thresholds (three at “Sometimes”, three at “Often”); 4 or more is the published positive cut-off (Kessler 2005).</span></div>`;
+  } else {
+    const opp=r.dims.opp;
+    h+=`<div class="screen"><span class="eyebrow">Oppositional behaviour (co-occurring)</span><span class="big">${opp.pct==null?"—":opp.pct.toFixed(0)}<span class="fine"> / 100</span></span><span class="chip${opp.pct!=null&&opp.pct>=50?" hit":""}">${opp.pct==null?"No answers":band(opp.pct)}</span><span class="fine">Shown separately; excluded from all neurodivergence indices.</span></div>`;
+  }
+  h+=`</div><p class="fine" style="margin-top:10px;max-width:72ch">A clinical ADHD diagnosis also requires several symptoms before age 12, presence in two or more settings, clear impairment, and that another condition doesn’t explain them better. ${formKey==="child"?"The Vanderbilt scale additionally asks about school and home performance; ask the class teacher to complete this form too.":"Collateral information from someone who knew you as a child strengthens an assessment."}</p></div>`;
+
+  // Dimensions
+  h+=`<div class="section"><h2>Dimensions</h2><p class="fine" style="margin-top:6px">Where the accumulated answers sit on each trait spectrum. Hover a bar for its value.</p>`;
+  for (const dom of f.domains){
+    h+=`<div class="dgroup"><h3>${esc(dom.name)}</h3>`;
+    for (const d of dom.dims){
+      const s=r.dims[d.id];
+      h+=`<div class="drow"><div><div class="dn">${esc(d.name)}</div><div class="dm">${s.n}/${s.total} items · ${esc(srcNames(d.src))}</div></div><div class="meter-wrap">${meter(s.pct,true)}</div><div class="val">${s.pct==null?`<b>—</b><span>not answered</span>`:`<b>${s.pct.toFixed(0)}</b><span>${band(s.pct)}${s.n<s.total?" · partial":""}</span>`}</div></div>`;
+    }
+    h+=`</div>`;
+  }
+  h+=`</div>`;
+  $("#profile").innerHTML=h;
+  $("#btn-copy").addEventListener("click",()=>copyText(r));
+}
+function copyText(r){
+  const f=FORMS[formKey]; const L=[];
+  L.push(`Neurodivergence Trait Profile — ${f.label}${state[formKey].example?" (EXAMPLE ANSWERS)":""}`);
+  L.push("", "Cumulative indices (0–100):");
+  for (const c of r.comps) L.push(`  ${c.name}: ${c.pct==null?"—":c.pct.toFixed(0)+" ("+band(c.pct)+")"}`);
+  L.push("", `DSM-5 symptom counts (rated ${f.scale[f.often]}+): inattention ${r.dsm.IA}/9, hyperactive–impulsive ${r.dsm.HI}/9 (threshold ${f.dsmCut})`);
+  if (formKey==="adult") L.push(`ASRS Part A rule: ${r.asrs}/6 (positive at 4+)`);
+  L.push("", "Dimensions:");
+  for (const dom of f.domains){ L.push(`  ${dom.name}`); for (const d of dom.dims){ const s=r.dims[d.id]; L.push(`    ${d.name}: ${s.pct==null?"—":s.pct.toFixed(0)+" ("+band(s.pct)+")"} [${s.n}/${s.total} items]`); } }
+  L.push("", "Screening profile only — not a diagnosis.");
+  const txt=L.join("\n"), status=$("#copy-status");
+  const fallback=()=>{ status.textContent="Copy blocked here — select the text below."; const pre=document.createElement("textarea"); pre.value=txt; pre.rows=12; pre.style.width="100%"; pre.style.marginTop="12px"; pre.readOnly=true; $("#profile").prepend(pre); pre.select(); };
+  try{ navigator.clipboard.writeText(txt).then(()=>{status.textContent="Copied";},fallback); }catch(e){ fallback(); }
+}
+
+/* ---------- Render: method ---------- */
+function renderMethod(){
+  const f=FORMS[formKey];
+  const used=new Set(); f.dimList.forEach(d=>d.src.forEach(s=>used.add(s))); used.add("ASTLE"); used.add("ROMM");
+  if (formKey==="adult") used.add("ASRS");
+  let rows=f.dimList.map(d=>`<tr><td>${esc(d.domain.name)}</td><td><strong>${esc(d.name)}</strong></td><td>${esc(d.what)}</td><td class="mono">${d.items.length}</td><td>${esc(srcNames(d.src))}</td></tr>`).join("");
+  $("#method").innerHTML=`
+  <div><h2>How this questionnaire was built</h2>
+   <ol>
+    <li><strong>Constructs come from validated instruments.</strong> Each dimension corresponds to a subscale or factor that has been psychometrically validated in peer-reviewed work — for example the two DSM-5 ADHD symptom clusters, Barkley’s five executive-function factors, the five AQ subscales, the three CAT-Q factors, the TAS-20 difficulty-identifying/describing-feelings factors, and Dunn’s sensory quadrants.</li>
+    <li><strong>Items are written to the source item’s content.</strong> ADHD items map one-to-one onto the 18 DSM-5 symptoms, worded for adults as in the WHO ASRS v1.1 and for children as in the Vanderbilt/SNAP-IV parent scales. Other items paraphrase the behaviour a subscale samples. Items are adaptations, not verbatim reproductions — several instruments (BRIEF, BDEFS, SRS-2, SCQ, Sensory Profile, DCDQ) are copyrighted and must be licensed for clinical use.</li>
+    <li><strong>Every dimension has at least three items</strong> (range 3–9), and multi-faceted constructs are split into separate dimensions — executive function into four, sensory processing into two, the autism spectrum into seven — so each angle is measured by several questions.</li>
+    <li><strong>Frequency scale.</strong> The adult form uses the ASRS five-point frequency scale (Never → Very often, scored 0–4). The child form uses the Vanderbilt/SNAP-IV four-point scale (Never → Very often, scored 0–3).</li>
+    <li><strong>Reverse-worded items</strong> (as in the AQ) are included in the autism, executive-function and emotion dimensions to reduce acquiescence bias; they are reverse-scored.</li>
+    <li><strong>Dimension score</strong> = mean item score ÷ scale maximum × 100. On the adult form 50 = averaging “Sometimes” and 75 = averaging “Often”; on the child form 33 ≈ “Occasionally” and 67 ≈ “Often”. For reference, published SNAP-IV parent cut-offs (item means of 1.78 inattention and 1.44 hyperactivity–impulsivity on 0–3) sit at 59 and 48 on this scale.</li>
+    <li><strong>Cumulative indices</strong> average their dimensions. The overall index reflects the transdiagnostic view that ADHD, autism, learning and motor differences are overlapping, dimensional and frequently co-occurring rather than separate boxes (Astle et al. 2022; Rommelse et al. 2010).</li>
+    <li><strong>Criterion screens</strong> apply the documented counting rules: DSM-5 symptom counts (≥6 of 9 under 17, ≥5 from 17) and, on the adult form, the ASRS v1.1 Part A rule (≥4 of 6 items over their thresholds).</li>
+   </ol></div>
+  <div><h2>Limits</h2>
+   <ul>
+    <li>Not normed: scores show where the answers fall on the response scale, not a percentile against the population.</li>
+    <li>Self- and parent-report are affected by mood, insight and masking; autistic adults who camouflage often under-report social differences.</li>
+    <li>Anxiety, depression, trauma, sleep problems, hearing or vision problems, thyroid problems and substance use can all raise these scores. A high score is a reason for assessment, not a conclusion.</li>
+    <li>At 9–10, children’s self-report of attention symptoms is unreliable, which is why the child form is parent-rated (a teacher copy is recommended).</li>
+   </ul></div>
+  <div><h2>Dimension map — ${esc(f.label)}</h2><div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Domain</th><th>Dimension</th><th>What it measures</th><th>Items</th><th>Instruments &amp; papers</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+  <div><h2>References</h2><ul class="refs">${[...used].map(k=>`<li><span class="k">${esc(srcNames([k]))}</span> — ${esc(REFS[k])}</li>`).join("")}</ul></div>`;
+}
+
+/* ---------- Wiring ---------- */
+function renderAll(){
+  document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.form===formKey)));
+  renderQuestions(); renderProfile(); renderMethod();
+}
+function setTab(t){
+  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===t)));
+  for (const p of ["questions","profile","method"]) document.getElementById("pane-"+p).hidden = p!==t;
+  if (t==="profile") renderProfile();
+  store.set("ndp:tab",t);
+}
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{ formKey=b.dataset.form; store.set("ndp:form",formKey); $("#confirm-clear").hidden=true; renderAll(); }));
+const toProfile=()=>{ setTab("profile"); window.scrollTo({top:0}); };
+$("#btn-to-profile").addEventListener("click",toProfile);
+$("#btn-to-profile-2").addEventListener("click",toProfile);
+$("#btn-example").addEventListener("click",()=>{ state[formKey]={answers:exampleAnswers(formKey),example:true}; save(); renderAll(); });
+const askClear=()=>{ $("#confirm-clear").hidden=false; };
+$("#btn-clear").addEventListener("click",askClear);
+$("#btn-clear-2").addEventListener("click",()=>{ state[formKey]={answers:{},example:false}; save(); renderAll(); setTab("questions"); });
+$("#btn-clear-yes").addEventListener("click",()=>{ state[formKey]={answers:{},example:false}; save(); $("#confirm-clear").hidden=true; renderAll(); setTab("questions"); });
+$("#btn-clear-no").addEventListener("click",()=>{ $("#confirm-clear").hidden=true; });
+$("#show-src").addEventListener("change",e=>{ $("#questions").classList.toggle("show-src",e.target.checked); });
+
+renderAll();
+const hash=location.hash.slice(1);
+const saved=store.get("ndp:tab");
+setTab(["questions","profile","method"].includes(hash)?hash:(state[formKey].example?"profile":(saved||"questions")));
+})();
+</script>
