@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Neurodivergence Trait Profile</title>
 <meta name="description" content="Research-grounded self/parent-report profile of ADHD, autism-spectrum, sensory, learning and motor traits for adults and 9–10 year olds.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -152,7 +157,8 @@ tr:last-child td{border-bottom:0}
 .row-actions{display:flex;gap:8px;flex-wrap:wrap}
 .status{font-size:.82rem;color:var(--muted)}
 </style>
-
+</head>
+<body>
 <div class="wrap">
   <div class="masthead">
     <div>
@@ -832,3 +838,5 @@ const saved=store.get("ndp:tab");
 setTab(["questions","profile","method"].includes(hash)?hash:(state[formKey].example?"profile":(saved||"questions")));
 })();
 </script>
+</body>
+</html>
