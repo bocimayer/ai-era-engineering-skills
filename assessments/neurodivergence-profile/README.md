@@ -4,6 +4,7 @@ A single-page questionnaire (`index.html`, no build step, open it in a browser) 
 
 - **Adult form (18+)** is a self-report with 91 items across 24 dimensions. It uses the ASRS five-point frequency scale, scored 0–4.
 - **Child form (9–10)** is a parent or caregiver report with 88 items across 23 dimensions. It uses the Vanderbilt/SNAP-IV four-point scale, scored 0–3. A teacher copy is recommended.
+- **Languages:** English and Hungarian (Magyar), switchable at the top of the page. The page defaults to Hungarian when the browser language is Hungarian. The Hungarian items are translations of this questionnaire's items, not the official validated Hungarian adaptations of the source instruments. Reference citations stay in their original English.
 
 > **Screening profile only, not a diagnosis.** Items are paraphrased adaptations written around the constructs of validated instruments, and several of those instruments are copyrighted. Scores are not normed against a population sample.
 

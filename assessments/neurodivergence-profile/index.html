@@ -79,7 +79,7 @@ button{font:inherit;color:inherit}
 .q .qn{font-family:var(--mono);font-size:.74rem;color:var(--muted)}
 .q .src{font-size:.76rem;color:var(--muted);display:none}
 .show-src .q .src{display:block}
-.q.unanswered .qn::after{content:" · unanswered";color:var(--muted)}
+.q.unanswered .qn::after{content:" · " attr(data-un);color:var(--muted)}
 .opts{display:flex;gap:4px;flex-wrap:nowrap}
 .opts input{position:absolute;opacity:0;width:1px;height:1px}
 .opts label{display:grid;place-items:center;min-width:64px;padding:7px 6px;border:1px solid var(--rule);background:var(--surface);border-radius:6px;cursor:pointer;font-size:.78rem;text-align:center;line-height:1.2;color:var(--ink-2)}
@@ -162,45 +162,49 @@ tr:last-child td{border-bottom:0}
 <div class="wrap">
   <div class="masthead">
     <div>
-      <p class="eyebrow">Behavioural trait screening · research-derived</p>
-      <h1>Neurodivergence Trait Profile</h1>
-      <p class="lede">A structured questionnaire mapping measurable ADHD, autism-spectrum, sensory, learning and motor traits onto the dimensions used in validated instruments (ASRS, Vanderbilt, SNAP-IV, BDEFS/BRIEF, AQ, RAADS-R, CAT-Q, TAS-20, Sensory Profile, ARHQ, DCDQ). Every dimension is measured by at least three questions. It produces a profile, not a diagnosis.</p>
+      <p class="eyebrow" id="t-eyebrow"></p>
+      <h1 id="t-h1"></h1>
+      <p class="lede" id="t-lede"></p>
     </div>
     <div class="controls">
-      <div class="seg" role="group" aria-label="Choose form">
-        <button type="button" id="form-adult" data-form="adult" aria-pressed="true">Adult form (18+)</button>
-        <button type="button" id="form-child" data-form="child" aria-pressed="false">Child form (9–10, parent-rated)</button>
+      <div class="seg" role="group" aria-label="Form" id="seg-form">
+        <button type="button" id="form-adult" data-form="adult" aria-pressed="true"></button>
+        <button type="button" id="form-child" data-form="child" aria-pressed="false"></button>
       </div>
       <div class="row-actions">
-        <button type="button" class="ghost" id="btn-example">Load example answers</button>
-        <button type="button" class="ghost" id="btn-clear">Clear answers</button>
+        <div class="seg" role="group" aria-label="Language / Nyelv" id="seg-lang">
+          <button type="button" id="lang-en" data-lang="en" lang="en" aria-pressed="true">English</button>
+          <button type="button" id="lang-hu" data-lang="hu" lang="hu" aria-pressed="false">Magyar</button>
+        </div>
+        <button type="button" class="ghost" id="btn-example"></button>
+        <button type="button" class="ghost" id="btn-clear"></button>
       </div>
     </div>
   </div>
 
   <div class="notice" id="example-notice" hidden>
-    <span><strong>You are looking at example answers,</strong> not your own. They show how the profile reads. Clear them to start the questionnaire.</span>
-    <button type="button" class="ghost" id="btn-clear-2">Clear and start</button>
+    <span id="t-exnotice"></span>
+    <button type="button" class="ghost" id="btn-clear-2"></button>
   </div>
   <div class="notice" id="confirm-clear" hidden>
-    <span>Clear every answer on this form? This can’t be undone.</span>
-    <span class="row-actions"><button type="button" class="ghost" id="btn-clear-yes">Yes, clear</button><button type="button" class="ghost" id="btn-clear-no">Keep answers</button></span>
+    <span id="t-confirm"></span>
+    <span class="row-actions"><button type="button" class="ghost" id="btn-clear-yes"></button><button type="button" class="ghost" id="btn-clear-no"></button></span>
   </div>
 
   <div class="tabs" role="tablist">
-    <button type="button" role="tab" id="tab-questions" aria-selected="true" data-tab="questions">Questionnaire</button>
-    <button type="button" role="tab" id="tab-profile" aria-selected="false" data-tab="profile">Profile</button>
-    <button type="button" role="tab" id="tab-method" aria-selected="false" data-tab="method">Method &amp; sources</button>
+    <button type="button" role="tab" id="tab-questions" aria-selected="true" data-tab="questions"></button>
+    <button type="button" role="tab" id="tab-profile" aria-selected="false" data-tab="profile"></button>
+    <button type="button" role="tab" id="tab-method" aria-selected="false" data-tab="method"></button>
   </div>
 
   <section id="pane-questions" role="tabpanel" aria-labelledby="tab-questions">
-    <div class="progress"><div class="bar"><i id="prog-bar"></i></div><span class="count mono" id="prog-count"></span><button type="button" class="ghost" id="btn-to-profile">See profile</button></div>
+    <div class="progress"><div class="bar"><i id="prog-bar"></i></div><span class="count mono" id="prog-count"></span><button type="button" class="ghost" id="btn-to-profile"></button></div>
     <div style="display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;margin-top:16px">
       <p class="fine" id="instructions" style="max-width:62ch"></p>
-      <label class="toggle"><input type="checkbox" id="show-src"> Show which dimension &amp; instrument each item measures</label>
+      <label class="toggle"><input type="checkbox" id="show-src"> <span id="t-showsrc"></span></label>
     </div>
     <div id="questions"></div>
-    <div style="margin-top:24px"><button type="button" class="ghost" id="btn-to-profile-2">See my profile →</button></div>
+    <div style="margin-top:24px"><button type="button" class="ghost" id="btn-to-profile-2"></button></div>
   </section>
 
   <section id="pane-profile" role="tabpanel" aria-labelledby="tab-profile" hidden>
@@ -211,9 +215,8 @@ tr:last-child td{border-bottom:0}
     <div id="method" class="method"></div>
   </section>
 
-  <p class="foot">This tool is for self-reflection and to structure a conversation with a qualified clinician. Items are paraphrased adaptations written around the constructs of the cited instruments (many of which are copyrighted); scores are not normed against a population sample and cannot be compared one-to-one with official cut-offs. A diagnosis of ADHD, autism, a specific learning disorder or DCD requires a clinical assessment, developmental history, evidence of impairment in more than one setting, and ruling out other explanations.</p>
+  <p class="foot" id="t-foot"></p>
 </div>
-
 <script>
 (function(){
 "use strict";
@@ -597,16 +600,406 @@ const CHILD = {
   ]
 };
 
+/* ---------- Hungarian item bank (same order as the English banks) ---------- */
+const HU = {
+ adult:{
+  label:"Felnőtt kérdőív",
+  scale:["Soha","Ritkán","Néha","Gyakran","Nagyon gyakran"],
+  instructions:"Arra gondolva válaszoljon, milyen volt általában az elmúlt 6 hónapban – a munkahelyen, otthon és társaságban. Ha valami gyerekkorában igaz volt, de most nem, a jelenlegi állapotára válaszoljon. Kb. 15 perc.",
+  domains:{
+   adhd:["Figyelem és aktivitás","A DSM-5 két ADHD-tünetcsoportja. A 18 DSM-5-tünet mindegyikéhez egy tétel tartozik, felnőttekre fogalmazva a WHO ASRS v1.1 mintájára."],
+   ef:["Végrehajtó funkciók","Mindennapi önszabályozás Barkley BDEFS-faktorai, valamint a BRIEF-A és a Brown EF/A skálák alapján. Felnőttkori ADHD-ban leggyakrabban itt jelentkezik a funkciózavar."],
+   reg:["Érzelmi és arousal-szabályozás","Olyan jellemzők, amelyek nem DSM-5-kritériumok, de a kutatásokban következetesen az ADHD-val és az autizmussal együtt mérik őket."],
+   asd:["Szociális kommunikáció és gondolkodásmód","Az autizmusspektrum dimenziói: a DSM-5 A (szociális kommunikáció) és B (korlátozott, ismétlődő mintázatok) kritériuma, az AQ alskáláin, a RAADS-R-en és a CAT-Q-n keresztül mérve. Az AQ-hoz hasonlóan több tétel fordított megfogalmazású, hogy csökkentse a helyeslési torzítást."],
+   sens:["Szenzoros feldolgozás","Dunn modellje elkülöníti a magas ingerküszöbű (ingerkereső, alacsony regisztráció) és az alacsony ingerküszöbű (érzékeny, elkerülő) mintázatokat. Az érzékelési eltérések a DSM-5 autizmus B4 kritériumát alkotják, és ADHD-ban is gyakoriak."],
+   lm:["Tanulás és mozgás","A specifikus tanulási zavarok (olvasás, matematika) és a fejlődési koordinációs zavar a véletlennél jóval gyakrabban jár együtt az ADHD-val és az autizmussal."]
+  },
+  dims:{
+   ina:["Figyelemzavar","Tartós figyelem, figyelmetlenségi hibák, odafigyelés, befejezés, szervezés, megerőltető feladatok, tárgyak elvesztése, elterelhetőség, feledékenység.",[
+    "Gondatlan hibákat vétek, ha a munka unalmas vagy aprólékos – félreolvasok egy számot, kihagyok egy sort vagy egy lépést.",
+    "Hosszú megbeszéléseken, olvasás vagy ismétlődő munka közben elkalandozik a figyelmem, még ha szeretnék is követni.",
+    "Ha valaki közvetlenül hozzám beszél, utólag rájövök, hogy lemaradtam annak egy részéről, amit mondott.",
+    "Amikor egy projekt nehezebb részén túl vagyok, nehezen fejezem be az utolsó részleteket.",
+    "Nehezemre esik rendszerezni a dolgokat, amikor egy feladat szervezést igényel.",
+    "Ha egy feladat sok kitartó gondolkodást igényel (űrlapok, jelentések, adóbevallás), kerülöm vagy halogatom a nekikezdést.",
+    "Elhagyom a mindennapi tárgyaimat, például a kulcsot, a telefont, a pénztárcát vagy fontos papírokat.",
+    "A háttérben zajló események, a zaj vagy a saját gondolataim elvonnak attól, amit éppen csinálok.",
+    "Elfelejtem a találkozókat, elintéznivalókat vagy kötelezettségeket, ha semmi sem emlékeztet rájuk."]],
+   hyp:["Hiperaktivitás és nyugtalanság","Izgés-mozgás, ülve maradás, belső nyugtalanság, csendes pihenés, hajtottság, sok beszéd.",[
+    "Izgok-mozgok, babrálok a kezemmel vagy a lábammal, ha hosszan kell ülnöm.",
+    "Felállok és otthagyom a helyem megbeszéléseken vagy olyan helyzetekben, ahol ülve kellene maradnom.",
+    "Belül nyugtalan vagyok, mintha folyton mozognom vagy csinálnom kellene valamit.",
+    "Nehezen tudok kikapcsolni és csendben pihenni, amikor szabadidőm van.",
+    "Túlzottan aktívnak érzem magam, és kényszert érzek, hogy csináljak valamit, mintha egy motor hajtana.",
+    "Társaságban többet beszélek, mint mások, vagy mások mondják, hogy túl sokat beszélek."]],
+   imp:["Impulzivitás","Közbevágás, várakozás, félbeszakítás (DSM-5), valamint előrelátás nélküli cselekvés és meggondolatlan beszéd.",[
+    "Befejezem mások mondatait, vagy válaszolok, mielőtt befejeznék a kérdést.",
+    "Nehezen várom ki a soromat – sorban állásnál, a forgalomban vagy beszélgetésben.",
+    "Félbeszakítom az embereket, amikor elfoglaltak vagy éppen beszélnek.",
+    "Hirtelen ötlettől vezérelve hozok döntéseket vagy vásárolok, amit később megbánok.",
+    "Átgondolás nélkül mondok dolgokat, és később azt kívánom, bárcsak ne mondtam volna."]],
+   tim:["Időgazdálkodás","Időtartam becslése, az eltelt idő érzékelése, határidő-vezérelt munka.",[
+    "Alábecsülöm, mennyi ideig tartanak a dolgok, és emiatt elkések.",
+    "A határidők csak akkor tűnnek valóságosnak, amikor már nagyon közel vannak; a munka nagy részét az utolsó pillanatban végzem.",
+    "Elveszítem az érzékem arra, mennyi idő telt el."]],
+   org:["Tervezés és szervezés","Feladatok lebontása, prioritások felállítása, rendszerek fenntartása.",[
+    "Az íróasztalom, a postafiókom vagy az otthonom gyorsabban rendetlenné válik, mint ahogy követni tudom.",
+    "Nehezen bontok le egy nagy projektet lépésekre, és nehezen döntöm el, mivel kezdjem.",
+    "Ha kialakítok egy tervet, listát vagy rendszert, hetekig használom is."]],
+   wm:["Munkamemória","Információ fejben tartása cselekvés közben.",[
+    "Bemegyek egy szobába vagy megnyitok egy új ablakot, és elfelejtem, miért.",
+    "Nehezen tartok fejben egyszerre több lépést, nevet vagy számot.",
+    "Amíg arra várok, hogy a másik befejezze, elfelejtem, mit akartam mondani."]],
+   mot:["Feladatindítás és motiváció","Nekikezdés sürgetés, újdonság vagy külső nyomás nélkül.",[
+    "Pontosan tudom, mit kell tennem, mégsem tudom rávenni magam, hogy elkezdjem.",
+    "Sürgetés, újdonság, erős érdeklődés vagy egy jelen lévő másik ember kell ahhoz, hogy nekiálljak a rutinfeladatoknak.",
+    "Különösebb erőfeszítés nélkül el tudok kezdeni unalmas feladatokat."]],
+   emo:["Érzelmi reaktivitás","Gyors, intenzív érzelmek és lassú megnyugvás (érzelmi impulzivitás).",[
+    "Apró frusztrációk miatt hamar elveszítem a türelmemet.",
+    "Az érzelmeim gyorsan és hevesen fellángolnak, aránytalanul ahhoz képest, ami történt.",
+    "Ha felzaklatnak, sokáig tart, mire megnyugszom.",
+    "Nyugodt maradok, ha a dolgok nem úgy alakulnak, ahogy szeretném."]],
+   rsd:["Elutasítás-érzékenység","Az elutasítás vagy kritika szorongó várása és erős reakció rá.",[
+    "Előre aggódom, hogy az emberek elutasítanak vagy csalódnak bennem.",
+    "Még az enyhe kritika is lesújt, és sokáig velem marad.",
+    "Egy semleges üzenetet vagy valaki hallgatását annak jeleként értelmezem, hogy haragszik rám."]],
+   hf:["Hiperfókusz","Intenzív elmélyülés, amelyet nehéz megszakítani vagy abbahagyni.",[
+    "Annyira belemerülök valami érdekesbe, hogy nem veszem észre az idő múlását, vagy azt, hogy szólítanak.",
+    "Kihagyok étkezést, alvást vagy más kötelezettséget, mert teljesen leköt egy tevékenység.",
+    "Ha mélyen koncentrálok, nehezen tudom kiszakítani magam, hogy valami másra váltsak."]],
+   cds:["Kognitív kiszakadás","Álmodozás, szellemi köd, révedezés, lassúság (korábbi nevén „lassú kognitív tempó”).",[
+    "Álmodozom vagy elmerülök a gondolataimban ahelyett, hogy arra figyelnék, ami előttem van.",
+    "A gondolkodásom lassúnak vagy ködösnek érződik, mintha homályban lenne az elmém.",
+    "„Kikapcsolok”, és a semmibe révedek anélkül, hogy észrevenném.",
+    "Lomhának vagy energiahiányosnak érzem magam másokhoz képest, még ha kialudtam is magam."]],
+   alx:["Érzelmi tudatosság (alexitímia)","Az érzések azonosítása és leírása; az érzelmek megkülönböztetése a testi érzetektől.",[
+    "Nehezen azonosítom, pontosan mit érzek.",
+    "Nehezen írom le másoknak az érzéseimet.",
+    "Ha felkavart vagyok, nem tudom szétválasztani a testi jelzéseket – éhség, szorongás, fáradtság vagy düh ez?"]],
+   soc:["Beszélgetés és nonverbális kommunikáció","Kölcsönös beszélgetés, szóváltás, szemkontaktus, hanghordozás és gesztusok.",[
+    "Nehezen tudom, mikor következem a beszélgetésben, vagy hogyan tartsam fenn a beszélgetést.",
+    "Mondják nekem, hogy tovább beszélek valamiről, és nem veszem észre, hogy a többiek érdeklődése elfogyott.",
+    "Könnyen és szívesen csevegek.",
+    "Tudatosan kell végiggondolnom, mennyi szemkontaktust, milyen arckifejezést vagy hanghordozást használjak."]],
+   soi:["Szociális intuíció","Szándékok, érzések és íratlan szabályok olvasása (szociális készség, tudatelmélet).",[
+    "Pusztán az arcára nézve meg tudom mondani, mit gondol vagy érez valaki.",
+    "Nehezen igazodom ki az emberek szándékain vagy egy társas helyzet íratlan szabályain.",
+    "Nem veszem észre, ha valaki unatkozik, célozgat valamire, vagy be szeretné fejezni a beszélgetést.",
+    "A társasági együttlét akkor is kimerít, ha jól sikerült."]],
+   rou:["Rutinok és rugalmasság","Az állandósághoz való ragaszkodás, figyelemváltás, a változással való megküzdés.",[
+    "A tervek váratlan változása jobban felzaklat, mint amennyire másokat látszólag.",
+    "Szeretem mindig ugyanúgy csinálni a dolgokat – ugyanazt az útvonalat, ételeket vagy lépéssorrendet.",
+    "Könnyen váltogatok különböző tevékenységek között.",
+    "Ha megzavarnak, nehezen térek vissza ahhoz, amit csináltam."]],
+   det:["Részlet- és mintázatfókusz","Lokális, részletközpontú feldolgozás és a rendszerek iránti vonzódás.",[
+    "Észreveszek apró részleteket, számmintázatokat vagy változásokat, amelyek másoknak elkerülik a figyelmét.",
+    "Vonzanak a mintázatok, rendszerek, kategóriák, vagy az, hogyan működnek a dolgok.",
+    "Általában inkább az egész képre koncentrálok, mint az apró részletekre."]],
+   int:["Intenzív érdeklődési körök","Az érdeklődési körök intenzitása és szűksége (DSM-5 B3).",[
+    "Van egy vagy néhány intenzív érdeklődési köröm, amely a gondolataim és a szabadidőm nagy részét kitölti.",
+    "Részletes információkat gyűjtök azokról a dolgokról, amelyek érdekelnek – tényeket, műszaki adatokat, listákat.",
+    "Nehezen foglalkozom az érdeklődési köreimen kívül eső témákkal, akkor is, ha társaságban ezt várnák."]],
+   lit:["Szó szerinti és képzeletbeli gondolkodás","Átvitt értelmű nyelv, a szereplők szándékainak kikövetkeztetése, beleélés.",[
+    "A szólásokat, az iróniát vagy a vicceket elsőre szó szerint értem.",
+    "Ha egy történetet olvasok, nehezen jövök rá a szereplők szándékaira.",
+    "Könnyen el tudom képzelni, milyen lenne valaki más bőrében lenni."]],
+   cam:["Szociális álcázás (kamuflázs)","Maszkolás, kompenzálás és asszimiláció a társas különbségek elrejtésére.",[
+    "Társas helyzetekben figyelem és igazítom az arckifejezésemet, a hangomat és a testbeszédemet, hogy „normálisnak” tűnjek.",
+    "A szociális készségeket mások, filmek vagy könyvek tanulmányozásával, utánzásával sajátítottam el.",
+    "Úgy érzem, szerepet játszom vagy megjátszom magam, hogy beilleszkedjek."]],
+   sen:["Szenzoros érzékenység és elkerülés","Alacsony küszöb: hangok, fény, érintés, szagok, tömeg.",[
+    "A hétköznapi zajok – csámcsogás, dúdolás, ketyegés, tömeg – zavarnak, vagy nehezen tudom kizárni őket.",
+    "Az erős vagy villódzó fény, az erős szagok, bizonyos anyagok vagy ruhacímkék nagyon zavarnak.",
+    "A zsúfolt helyek, például a bevásárlóközpontok vagy a bulik, hamar túlterhelnek.",
+    "Elkerülök vagy elhagyok helyeket a zaj, a fény, az érintés vagy a szagok miatt."]],
+   sek:["Ingerkeresés és alacsony regisztráció","Magas küszöb: intenzív ingerek keresése, jelzések elszalasztása, gyenge interocepció.",[
+    "Intenzív érzeteket keresek – hangos zenét, nagyon csípős ételt, erős mozgást vagy mély nyomást.",
+    "Nem veszek észre olyasmit, amit mások igen, például ha a nevemen szólítanak, vagy megérintik a vállamat.",
+    "Nem veszem észre az éhséget, a szomjúságot, a fájdalmat vagy a hőmérsékletet, amíg szélsőségessé nem válik.",
+    "Mozgok, babrálok, megérintek dolgokat vagy hangokat adok ki, hogy éber vagy nyugodt maradjak."]],
+   rea:["Olvasás és helyesírás","Olvasási sebesség és pontosság, betű- és számsorrend, helyesírás (diszlexiás jellemzők).",[
+    "Lassabban olvasok, mint mások, vagy újra kell olvasnom a szöveget, hogy megértsem.",
+    "Összekeverem a betűk vagy számok sorrendjét, vagy elveszítem, hol tartok az oldalon.",
+    "A helyesírás nehéz számomra, még a gyakran használt szavaknál is.",
+    "A hangos olvasás kellemetlen, mert megbotlom a szavakban."]],
+   num:["Számfeldolgozás","Számolási folyékonyság, mennyiség- és időbecslés, többlépéses számítás (diszkalkuliás jellemzők).",[
+    "A fejszámolás – visszajáró, borravaló, a számla elosztása – nehéz, még egyszerű számokkal is.",
+    "Nehezen becsülök meg mennyiségeket vagy távolságokat, vagy nehezen olvasom le gyorsan a mutatós órát.",
+    "Elveszítem a fonalat egy számítás lépéseiben, vagy nem tudom, melyik műveletet kell használni."]],
+   mtr:["Mozgáskoordináció","Nagymozgás, finommotorika és kézírás, mozgástanulás (DCD, diszpraxiás jellemzők).",[
+    "Ügyetlen vagyok – gyakrabban ütközöm neki dolgoknak, botlom meg vagy ejtek le valamit, mint mások.",
+    "A kézírásom lassú, rendezetlen vagy fárasztó.",
+    "Mozgásos készségek (sport, tánclépések, vezetés) elsajátítása érezhetően tovább tartott nálam, mint a kortársaimnál."]]
+  },
+  comps:{
+   "c-adhd":["ADHD-mag index","Figyelemzavar, hiperaktivitás és impulzivitás (DSM-5 A kritérium)."],
+   "c-ef":["Végrehajtó funkciós terhelés","Idő, szervezés, munkamemória, feladatindítás."],
+   "c-reg":["Szabályozási és arousal-index","Érzelmi reaktivitás, elutasítás-érzékenység, hiperfókusz, kognitív kiszakadás."],
+   "c-asd":["Autizmusspektrum-index","Szociális kommunikáció, szociális intuíció, rutinok, részletfókusz, érdeklődési körök, szó szerinti gondolkodás, álcázás, szenzoros érzékenység."],
+   "c-lm":["Tanulási és mozgásos index","Olvasás, számfeldolgozás, mozgáskoordináció."],
+   "c-all":["Átfogó neurodivergencia-index","A kérdőív összes dimenziójának átlaga – transzdiagnosztikus összegzés."]
+  }
+ },
+ child:{
+  label:"Gyermek kérdőív (9–10 év)",
+  scale:["Soha","Alkalmanként","Gyakran","Nagyon gyakran"],
+  instructions:"Szülőnek vagy gondozónak, aki jól ismeri a gyermeket. Értékelje, hogyan viselkedett a gyermek az elmúlt 6 hónapban az azonos korú gyerekekhez képest. Ha lehet, töltse ki a gyermekkel együtt, és kérje meg a pedagógust is egy példány kitöltésére – az ADHD-tüneteknek legalább két környezetben jelen kell lenniük. Kb. 15 perc.",
+  domains:{
+   adhd:["Figyelem és aktivitás","A 18 DSM-5 ADHD-tünet szülői megfogalmazásban, a NICHQ Vanderbilt és a SNAP-IV skálák mintájára."],
+   ef:["Végrehajtó funkciók","Mindennapi önszabályozási skálák a BRIEF-2 szülői változata alapján (munkamemória, tervezés és szervezés, feladatindítás)."],
+   reg:["Érzelmi és arousal-szabályozás","Kapcsolódó jellemzők, amelyeket gyermekeknél következetesen az ADHD-val és az autizmussal együtt mérnek."],
+   asd:["Szociális kommunikáció és gondolkodásmód","Autizmusspektrum-dimenziók az AQ-Child alskálái, az SCQ és az SRS-2, valamint a DSM-5 A és B kritériuma alapján. Egyes tételek fordított megfogalmazásúak."],
+   sens:["Szenzoros feldolgozás","A Rövid Szenzoros Profil (Short Sensory Profile) és Dunn négyes modellje alapján."],
+   lm:["Tanulás és mozgás","Az olvasási és matematikai skálák a Colorado Learning Difficulties Questionnaire-t, a mozgásos tételek a DCDQ’07-et követik."],
+   co:["Társuló viselkedés","A Vanderbilt szülői skála szűri, mert gyakran jár együtt az ADHD-val. Nem neurodivergens jellemző, ezért külön jelenik meg, és egyetlen indexbe sem számít bele."]
+  },
+  dims:{
+   ina:["Figyelemzavar","Részletek, tartós figyelem, odafigyelés, befejezés, szervezés, megerőltető feladatok, tárgyak elvesztése, elterelhetőség, feledékenység.",[
+    "Gondatlan hibákat vét az iskolai munkában, vagy nem figyel a részletekre.",
+    "Nehezen tartja fenn a figyelmét feladatok vagy játék közben, például leckeírásnál, olvasásnál vagy társasjátéknál.",
+    "Úgy tűnik, nem figyel, amikor közvetlenül hozzá beszélnek – gyakran meg kell ismételni, amit mondtak neki.",
+    "Nem követi végig az utasításokat, és nem fejezi be a házi feladatot vagy a házimunkát (nem ellenkezésből vagy meg nem értés miatt).",
+    "Nehezen szervezi meg a feladatait és a holmiját – iskolatáska, íróasztal, szoba.",
+    "Kerüli, nem szereti vagy halogatja azokat a feladatokat, amelyek tartós szellemi erőfeszítést igényelnek, például a házi feladatot.",
+    "Elhagyja az iskolához vagy a tevékenységekhez szükséges dolgokat – ceruzát, könyvet, pulóvert, kulacsot.",
+    "Könnyen eltereli a figyelmét a zaj, más emberek vagy a környezetében zajló dolgok.",
+    "Feledékeny a napi teendőkben – fogmosás, a házi feladat hazahozatala, a sportfelszerelés bepakolása."]],
+   hyp:["Hiperaktivitás","Izgés-mozgás, ülve maradás, szaladgálás és mászás, csendes játék, folyamatos pörgés, sok beszéd.",[
+    "Babrál a kezével vagy a lábával, vagy fészkelődik a széken.",
+    "Felkel a helyéről, amikor ülve kellene maradnia – étkezésnél, órán.",
+    "Szaladgál vagy felmászik dolgokra, amikor ez nem helyénvaló.",
+    "Nehezen tud csendben játszani vagy szabadidős tevékenységet végezni.",
+    "Folyton „pörög”, vagy úgy viselkedik, mintha „motor hajtaná”.",
+    "Túlzottan sokat beszél."]],
+   imp:["Impulzivitás","Közbevágás, várakozás, félbeszakítás, cselekvés gondolkodás előtt.",[
+    "Kibukik belőle a válasz, mielőtt a kérdést befejeznék.",
+    "Nehezen várja ki a sorát játékban vagy sorban állásnál.",
+    "Félbeszakít másokat vagy beleavatkozik a dolgaikba – belekotyog a beszélgetésekbe vagy beleszól a játékba.",
+    "Gondolkodás nélkül cselekszik, például kiszalad az úttestre vagy elkap dolgokat."]],
+   wm:["Munkamemória","Utasítások és célok fejben tartása.",[
+    "Elfelejti, miért küldték – elmegy valamiért, és üres kézzel jön vissza.",
+    "Nehezen jegyzi meg a kettőnél több lépésből álló utasításokat.",
+    "Egy feladat közepén elfelejti, mit csinált."]],
+   org:["Tervezés, idő és szervezés","Projektek lebontása, időbecslés, a holmik rendben tartása.",[
+    "Alábecsüli, mennyi időt vesz igénybe a lecke vagy egy projekt, és az utolsó pillanatra hagyja.",
+    "Nem tud belekezdeni egy többlépéses feladatba, hacsak egy felnőtt nem bontja lépésekre.",
+    "Emlékeztetés nélkül rendben tartja a holmiját és az iskolai munkáit."]],
+   ini:["Feladatindítás","Nekikezdés felszólítás, jutalom vagy újdonság nélkül.",[
+    "Szólni kell neki, hogy elkezdjen egy feladatot, még ha hajlandó is megcsinálni.",
+    "Csak akkor lendül bele, ha a feladat érdekes, új, vagy azonnali jutalom jár érte.",
+    "Magától nekiáll a házi feladatnak vagy a házimunkának."]],
+   emo:["Érzelmi reaktivitás","Ingerlékenység, intenzitás és megnyugvási idő.",[
+    "Apróságok miatt nagyon felzaklatja magát, vagy kiborul.",
+    "Gyorsan és hevesen fellángol a dühe.",
+    "Sokáig tart, mire megnyugszik, ha felzaklatták.",
+    "Hamar túlteszi magát rajta, ha valami nem úgy alakul, ahogy szeretné."]],
+   rsd:["Elutasítás-érzékenység","Az elutasítás vagy kritika várása és túlzott reakció rá.",[
+    "Aggódik, hogy a többi gyerek nem kedveli, vagy kihagyják.",
+    "Nagyon megbántja az enyhe ugratás vagy rendreutasítás, és sokáig rosszul érzi magát miatta.",
+    "Azt feltételezi, hogy mások haragszanak rá, amikor nem így van."]],
+   hf:["Hiperfókusz","Intenzív elmélyülés, amelyet nehéz megszakítani.",[
+    "Annyira belemerül a játékba, a képernyőbe vagy a hobbijába, hogy nem hallja, ha szólítják.",
+    "Nagyon nehéz elszakítani egy kedvelt tevékenységtől, még étkezéshez vagy lefekvéshez is.",
+    "Órákig tud koncentrálni valamire, amit szeret, pedig egyébként nehezen összpontosít."]],
+   cds:["Kognitív kiszakadás","Álmodozás, ködösség, révedezés, lassúság.",[
+    "Álmodozik, vagy elveszettnek tűnik a saját gondolataiban.",
+    "Olyan, mintha „ködben” lenne, vagy zavartnak tűnik.",
+    "Üres tekintettel a semmibe bámul.",
+    "Lassan mozog vagy dolgozik; lomhának vagy fáradtnak tűnik."]],
+   alx:["Érzelmi tudatosság","Az érzések felismerése és megnevezése; a testi jelzések összekeverése.",[
+    "Nehezen mondja el, mit érez (azt mondja: „nem tudom”, vagy csak annyit: „rossz”).",
+    "Úgy tűnik, nem tudja eldönteni, hogy éhes, fáradt, beteg vagy zaklatott.",
+    "Ha megkérdezik, szavakkal el tudja magyarázni az érzéseit."]],
+   soc:["Beszélgetés és nonverbális kommunikáció","Oda-vissza beszélgetés, gesztusok, szemkontaktus, szokatlan beszéd.",[
+    "Nehezen tart fenn oda-vissza beszélgetést más gyerekekkel.",
+    "Hosszasan beszél a saját témájáról, és nem figyeli, érdekli-e a többieket.",
+    "Beszéd közben természetesen használ gesztusokat, arckifejezéseket és szemkontaktust.",
+    "Szokatlanul beszél – túlságosan választékosan, monoton vagy énekszerű hangon, vagy műsorokból ismételget mondatokat."]],
+   soi:["Szociális intuíció","Barátságok, érzések olvasása, íratlan szabályok.",[
+    "Nehezen szerez barátokat, vagy nehezen kapcsolódik be más gyerekek játékába.",
+    "Nem veszi észre mások érzéseit, hacsak meg nem mondják neki – például nem tűnik fel neki, hogy egy barátja szomorú.",
+    "Könnyen megérti az udvar vagy az osztályterem íratlan szabályait.",
+    "Szívesebben játszik egyedül vagy felnőttekkel, mint a kortársaival."]],
+   rou:["Rutinok és rugalmasság","Az állandósághoz való ragaszkodás és a tevékenységek közötti váltás.",[
+    "Nagyon felzaklatják a napirend vagy a tervek apró változásai.",
+    "Ragaszkodik ahhoz, hogy a dolgokat egy bizonyos módon vagy sorrendben csinálják.",
+    "Kérésre könnyen átvált egyik tevékenységről a másikra.",
+    "Nehezen engedi el a hibákat, a nézeteltéréseket vagy a tervek megváltozását."]],
+   det:["Részlet- és mintázatfókusz","Részletek észrevétele, rendezgetés, rendszerezés.",[
+    "Észrevesz apró részleteket vagy mintázatokat, amelyek másoknak elkerülik a figyelmét, például rendszámokat vagy kis változásokat egy szobában.",
+    "Szeret tárgyakat vagy információkat sorba rakni, rendezni vagy kategorizálni.",
+    "Inkább az egész képet veszi észre, mint az apró részleteket."]],
+   int:["Intenzív érdeklődési körök","Az érdeklődés intenzitása és szűksége.",[
+    "Intenzíven érdeklődik egy téma iránt (pl. vonatok, dinoszauruszok, egy bizonyos játék), amely uralja a beszélgetéseit.",
+    "Szokatlanul sok részletet vagy tényt tud egy adott témáról.",
+    "Nehezen mutat érdeklődést olyan tevékenységek iránt, amelyek nem a kedvencei."]],
+   lit:["Szó szerinti és képzeletbeli gondolkodás","Átvitt értelmű nyelv, viccek, szerepjáték.",[
+    "Szó szerint érti a dolgokat – összezavarják az olyan szólások, mint „kösd fel a gatyád”, vagy az irónia.",
+    "Nehezen érti a vicceket vagy a baráti ugratást.",
+    "Szívesen játszik szerepjátékot, vagy talál ki történeteket másokkal."]],
+   sen:["Szenzoros érzékenység és elkerülés","Hang, érintés, íz és szag, tömeg.",[
+    "Zavarják a hétköznapi zajok (kézszárító, porszívó, hangos beszéd), vagy befogja a fülét.",
+    "Erősen reagál a ruhák anyagára, a címkékre, a hajvágásra, a körömvágásra vagy az érintésre.",
+    "Válogatós az ételekben azok íze, állaga vagy szaga miatt.",
+    "Túlterhelődik zajos, zsúfolt helyeken, például bulikon vagy bevásárlóközpontokban."]],
+   sek:["Ingerkeresés és alacsony regisztráció","Mozgáskeresés, jelzések elszalasztása, gyenge fájdalom- és hőérzékelés, stimmelés.",[
+    "Sok mozgást keres – pörög, ugrál, nekirohan dolgoknak.",
+    "Úgy tűnik, nem veszi észre, ha a nevén szólítják, vagy ha maszatos az arca vagy a keze.",
+    "Úgy tűnik, alig érzékeli a fájdalmat, a hideget vagy a meleget.",
+    "Hangokat ad ki, csapkod a kezével, ringatózik vagy babrál, hogy nyugodt vagy összpontosított maradjon."]],
+   rea:["Olvasás és helyesírás","Olvasási pontosság és sebesség, dekódolás, helyesírás.",[
+    "Lassabban vagy pontatlanabbul olvas, mint az osztálytársai.",
+    "Nehezen olvassa ki az ismeretlen szavakat.",
+    "Sok helyesírási hibát vét, még a begyakorolt szavakban is.",
+    "Még mindig gyakran összekeveri az olyan betűket, mint a b/d vagy a p/q."]],
+   num:["Számfeldolgozás","Számtani tények, számolási stratégiák, idő, pénz, nagyságrend.",[
+    "Nehezen tanulja meg vagy jegyzi meg a számtani tényeket (szorzótábla, egyszerű összeadás).",
+    "Még mindig az ujjain számol, amikor az osztálytársai már nem.",
+    "Nehezen igazodik el az óra leolvasásában, a pénz kezelésében, vagy abban, melyik szám a nagyobb."]],
+   mtr:["Mozgáskoordináció","Finommotorika és kézírás, általános koordináció, mozgástanulás.",[
+    "A kézírása lassú, rendetlen vagy megerőltető az osztálytársaihoz képest.",
+    "Ügyetlen – megbotlik, nekimegy dolgoknak, felborít tárgyakat.",
+    "Nehezen tanul meg olyan készségeket, mint a labdaelkapás, a biciklizés vagy a cipőfűző megkötése."]],
+   opp:["Oppozíciós viselkedés","Vitatkozás, ellenszegülés, hibáztatás, bosszantás (DSM-5 ODD-tételek).",[
+    "Vitatkozik a felnőttekkel.",
+    "Kifejezetten megtagadja a felnőttek kéréseinek vagy szabályainak betartását.",
+    "Másokat hibáztat a saját hibáiért vagy viselkedéséért.",
+    "Szándékosan bosszant másokat."]]
+  },
+  comps:{
+   "c-adhd":["ADHD-mag index","Figyelemzavar, hiperaktivitás és impulzivitás (DSM-5 A kritérium)."],
+   "c-ef":["Végrehajtó funkciós terhelés","Munkamemória, tervezés és idő, feladatindítás."],
+   "c-reg":["Szabályozási és arousal-index","Érzelmi reaktivitás, elutasítás-érzékenység, hiperfókusz, kognitív kiszakadás."],
+   "c-asd":["Autizmusspektrum-index","Szociális kommunikáció, szociális intuíció, rutinok, részletfókusz, érdeklődési körök, szó szerinti gondolkodás, szenzoros érzékenység."],
+   "c-lm":["Tanulási és mozgásos index","Olvasás, számfeldolgozás, mozgáskoordináció."],
+   "c-all":["Átfogó neurodivergencia-index","Az összes dimenzió átlaga a társuló viselkedés kivételével – transzdiagnosztikus összegzés."]
+  }
+ }
+};
 const FORMS = {adult:ADULT, child:CHILD};
-const BANDS = [
-  {to:30, name:"Typical range"},
-  {to:50, name:"Some traits"},
-  {to:70, name:"Elevated"},
-  {to:101, name:"Pronounced"}
-];
+const BAND_TO = [30,50,70,101];
+const BAND_RANGE = ["0–29","30–49","50–69","70–100"];
 const EXAMPLE_LEVELS = {
   adult:{ina:.78,hyp:.5,imp:.6,tim:.82,org:.7,wm:.72,mot:.8,emo:.58,rsd:.66,hf:.76,cds:.45,alx:.35,soc:.3,soi:.32,rou:.42,det:.55,int:.6,lit:.2,cam:.45,sen:.52,sek:.5,rea:.18,num:.32,mtr:.3},
   child:{ina:.72,hyp:.62,imp:.66,wm:.7,org:.68,ini:.74,emo:.6,rsd:.5,hf:.72,cds:.35,alx:.4,soc:.3,soi:.28,rou:.45,det:.4,int:.55,lit:.25,sen:.5,sek:.55,rea:.3,num:.25,mtr:.42,opp:.35}
+};
+
+/* ---------- Interface text ---------- */
+const UI = {
+ en:{
+  title:"Neurodivergence Trait Profile",
+  eyebrow:"Behavioural trait screening · research-derived",
+  lede:"A structured questionnaire mapping measurable ADHD, autism-spectrum, sensory, learning and motor traits onto the dimensions used in validated instruments (ASRS, Vanderbilt, SNAP-IV, BDEFS/BRIEF, AQ, RAADS-R, CAT-Q, TAS-20, Sensory Profile, ARHQ, DCDQ). Every dimension is measured by at least three questions. It produces a profile, not a diagnosis.",
+  formAdult:"Adult form (18+)", formChild:"Child form (9–10, parent-rated)",
+  example:"Load example answers", clear:"Clear answers",
+  exNotice:"<strong>You are looking at example answers,</strong> not your own. They show how the profile reads. Clear them to start the questionnaire.",
+  clearStart:"Clear and start", confirm:"Clear every answer on this form? This can’t be undone.", yes:"Yes, clear", keep:"Keep answers",
+  tabQ:"Questionnaire", tabP:"Profile", tabM:"Method & sources",
+  seeProfile:"See profile", seeMy:"See my profile →", showSrc:"Show which dimension & instrument each item measures",
+  answered:(n,N)=>`${n} / ${N} answered`, unanswered:"unanswered",
+  foot:"This tool is for self-reflection and to structure a conversation with a qualified clinician. Items are paraphrased adaptations written around the constructs of the cited instruments (many of which are copyrighted); scores are not normed against a population sample and cannot be compared one-to-one with official cut-offs. A diagnosis of ADHD, autism, a specific learning disorder or DCD requires a clinical assessment, developmental history, evidence of impairment in more than one setting, and ruling out other explanations.",
+  domHead:(d,n)=>`${d} dimension${d>1?"s":""} · ${n} items`,
+  rev:"reverse-scored", dsmIA:"DSM-5 inattention symptom", dsmHI:"DSM-5 hyperactivity–impulsivity symptom", asrsItem:"ASRS Part A item",
+  bands:["Typical range","Some traits","Elevated","Pronounced"],
+  profHead:(l,a,N,ex)=>`${l} · ${a} of ${N} items answered${ex?" · example answers":""}`,
+  cumHead:"Cumulative indices", copy:"Copy results as text", copied:"Copied", copyBlocked:"Copy blocked here — select the text below.",
+  cumNote:"Each index is the average position (0–100) of its dimensions. 0 means every item answered at the lowest level, 100 the highest. Bands are anchored to the response labels, not to population norms.",
+  noAnswers:"no answers", notAnswered:"not answered", partial:"partial",
+  scrHead:"Criterion-based screens",
+  scrNote:o=>`These apply the documented counting rules of the source instruments to the matching items. A symptom counts when rated “${o}” or higher.`,
+  ia:"DSM-5 inattention symptoms", hi:"DSM-5 hyperactive–impulsive symptoms",
+  atOrAbove:"At or above threshold", below:"Below threshold",
+  thr:(c,adult)=>`Threshold: ${c} of 9 ${adult?"(age 17+)":"(under 17)"}.`, thrShort:c=>`Threshold: ${c} of 9.`, pattern:"Pattern",
+  pres:["Combined pattern","Predominantly inattentive pattern","Predominantly hyperactive–impulsive pattern","Below symptom-count threshold"],
+  asrsHead:"ASRS v1.1 Part A rule", asrsPos:"Screen-positive pattern", asrsNeg:"Screen-negative pattern",
+  asrsNote:"Six items with item-specific thresholds (three at “Sometimes”, three at “Often”); 4 or more is the published positive cut-off (Kessler 2005).",
+  oppHead:"Oppositional behaviour (co-occurring)", oppNote:"Shown separately; excluded from all neurodivergence indices.",
+  diag:"A clinical ADHD diagnosis also requires several symptoms before age 12, presence in two or more settings, clear impairment, and that another condition doesn’t explain them better.",
+  diagChild:"The Vanderbilt scale additionally asks about school and home performance; ask the class teacher to complete this form too.",
+  diagAdult:"Collateral information from someone who knew you as a child strengthens an assessment.",
+  dimHead:"Dimensions", dimNote:"Where the accumulated answers sit on each trait spectrum. Hover a bar for its value.",
+  items:(n,t)=>`${n}/${t} items`,
+  txtTitle:"Neurodivergence Trait Profile", txtExample:" (EXAMPLE ANSWERS)", txtCum:"Cumulative indices (0–100):",
+  txtDsm:(o,a,b,c)=>`DSM-5 symptom counts (rated ${o}+): inattention ${a}/9, hyperactive–impulsive ${b}/9 (threshold ${c})`,
+  txtAsrs:n=>`ASRS Part A rule: ${n}/6 (positive at 4+)`, txtDims:"Dimensions:", txtItems:"items", txtFoot:"Screening profile only — not a diagnosis.",
+  mHow:"How this questionnaire was built",
+  mSteps:[
+   "<strong>Constructs come from validated instruments.</strong> Each dimension corresponds to a subscale or factor that has been psychometrically validated in peer-reviewed work — for example the two DSM-5 ADHD symptom clusters, Barkley’s five executive-function factors, the five AQ subscales, the three CAT-Q factors, the TAS-20 difficulty-identifying/describing-feelings factors, and Dunn’s sensory quadrants.",
+   "<strong>Items are written to the source item’s content.</strong> ADHD items map one-to-one onto the 18 DSM-5 symptoms, worded for adults as in the WHO ASRS v1.1 and for children as in the Vanderbilt/SNAP-IV parent scales. Other items paraphrase the behaviour a subscale samples. Items are adaptations, not verbatim reproductions — several instruments (BRIEF, BDEFS, SRS-2, SCQ, Sensory Profile, DCDQ) are copyrighted and must be licensed for clinical use.",
+   "<strong>Every dimension has at least three items</strong> (range 3–9), and multi-faceted constructs are split into separate dimensions — executive function into four, sensory processing into two, the autism spectrum into seven — so each angle is measured by several questions.",
+   "<strong>Frequency scale.</strong> The adult form uses the ASRS five-point frequency scale (Never → Very often, scored 0–4). The child form uses the Vanderbilt/SNAP-IV four-point scale (Never → Very often, scored 0–3).",
+   "<strong>Reverse-worded items</strong> (as in the AQ) are included in the autism, executive-function and emotion dimensions to reduce acquiescence bias; they are reverse-scored.",
+   "<strong>Dimension score</strong> = mean item score ÷ scale maximum × 100. On the adult form 50 = averaging “Sometimes” and 75 = averaging “Often”; on the child form 33 ≈ “Occasionally” and 67 ≈ “Often”. For reference, published SNAP-IV parent cut-offs (item means of 1.78 inattention and 1.44 hyperactivity–impulsivity on 0–3) sit at 59 and 48 on this scale.",
+   "<strong>Cumulative indices</strong> average their dimensions. The overall index reflects the transdiagnostic view that ADHD, autism, learning and motor differences are overlapping, dimensional and frequently co-occurring rather than separate boxes (Astle et al. 2022; Rommelse et al. 2010).",
+   "<strong>Criterion screens</strong> apply the documented counting rules: DSM-5 symptom counts (≥6 of 9 under 17, ≥5 from 17) and, on the adult form, the ASRS v1.1 Part A rule (≥4 of 6 items over their thresholds)."
+  ],
+  mLimits:"Limits",
+  mLimitList:[
+   "Not normed: scores show where the answers fall on the response scale, not a percentile against the population.",
+   "Self- and parent-report are affected by mood, insight and masking; autistic adults who camouflage often under-report social differences.",
+   "Anxiety, depression, trauma, sleep problems, hearing or vision problems, thyroid problems and substance use can all raise these scores. A high score is a reason for assessment, not a conclusion.",
+   "At 9–10, children’s self-report of attention symptoms is unreliable, which is why the child form is parent-rated (a teacher copy is recommended)."
+  ],
+  mMap:l=>`Dimension map — ${l}`, mCols:["Domain","Dimension","What it measures","Items","Instruments & papers"],
+  mRefs:"References", mRefsNote:""
+ },
+ hu:{
+  title:"Neurodivergens jellemzők profilja",
+  eyebrow:"Viselkedési jellemzők szűrése · kutatásokon alapuló",
+  lede:"Strukturált kérdőív, amely a mérhető ADHD-, autizmusspektrum-, szenzoros, tanulási és mozgásos jellemzőket a validált mérőeszközök (ASRS, Vanderbilt, SNAP-IV, BDEFS/BRIEF, AQ, RAADS-R, CAT-Q, TAS-20, Sensory Profile, ARHQ, DCDQ) dimenzióira képezi le. Minden dimenziót legalább három kérdés mér. Az eredmény profil, nem diagnózis.",
+  formAdult:"Felnőtt kérdőív (18+)", formChild:"Gyermek kérdőív (9–10 év, szülő tölti ki)",
+  example:"Példaválaszok betöltése", clear:"Válaszok törlése",
+  exNotice:"<strong>Ezek példaválaszok,</strong> nem az Ön válaszai. Azt mutatják, hogyan néz ki a profil. Törölje őket a kitöltés megkezdéséhez.",
+  clearStart:"Törlés és kezdés", confirm:"Törli az összes választ ezen a kérdőíven? Ez nem vonható vissza.", yes:"Igen, törlöm", keep:"Megtartom",
+  tabQ:"Kérdőív", tabP:"Profil", tabM:"Módszer és források",
+  seeProfile:"Profil megtekintése", seeMy:"Saját profilom →", showSrc:"Mutassa meg, hogy az egyes tételek melyik dimenziót és mérőeszközt mérik",
+  answered:(n,N)=>`${n} / ${N} megválaszolva`, unanswered:"nincs megválaszolva",
+  foot:"Ez az eszköz önreflexióra és egy szakemberrel folytatott beszélgetés előkészítésére szolgál. A tételek a hivatkozott mérőeszközök konstruktumai köré írt, átfogalmazott adaptációk (ezek közül több szerzői jogvédelem alatt áll); a pontszámok nincsenek populációs mintán normálva, és nem vethetők össze egy az egyben a hivatalos határértékekkel. Az ADHD, az autizmus, a specifikus tanulási zavar vagy a fejlődési koordinációs zavar diagnózisához klinikai vizsgálat, fejlődéstörténet, több környezetben jelentkező funkciózavar igazolása és más magyarázatok kizárása szükséges.",
+  domHead:(d,n)=>`${d} dimenzió · ${n} tétel`,
+  rev:"fordított pontozású", dsmIA:"DSM-5 figyelemzavar-tünet", dsmHI:"DSM-5 hiperaktivitás–impulzivitás-tünet", asrsItem:"ASRS A-rész tétel",
+  bands:["Tipikus tartomány","Néhány jellemző","Emelkedett","Kifejezett"],
+  profHead:(l,a,N,ex)=>`${l} · ${N} tételből ${a} megválaszolva${ex?" · példaválaszok":""}`,
+  cumHead:"Összesített indexek", copy:"Eredmények másolása szövegként", copied:"Kimásolva", copyBlocked:"A másolás itt nem engedélyezett – jelölje ki az alábbi szöveget.",
+  cumNote:"Minden index a hozzá tartozó dimenziók átlagos helyzete (0–100). A 0 azt jelenti, hogy minden tételre a legalacsonyabb, a 100 azt, hogy a legmagasabb választ adta. A sávok a válaszlehetőségekhez igazodnak, nem populációs normákhoz.",
+  noAnswers:"nincs válasz", notAnswered:"nincs megválaszolva", partial:"részleges",
+  scrHead:"Kritériumalapú szűrések",
+  scrNote:o=>`Ezek a forrás-mérőeszközök dokumentált számlálási szabályait alkalmazzák a megfelelő tételekre. Egy tünet akkor számít, ha „${o}” vagy magasabb értékelést kapott.`,
+  ia:"DSM-5 figyelemzavar-tünetek", hi:"DSM-5 hiperaktív–impulzív tünetek",
+  atOrAbove:"Eléri a küszöböt", below:"Küszöb alatt",
+  thr:(c,adult)=>`Küszöb: 9-ből ${c} ${adult?"(17 éves kortól)":"(17 év alatt)"}.`, thrShort:c=>`Küszöb: 9-ből ${c}.`, pattern:"Mintázat",
+  pres:["Kombinált mintázat","Túlnyomóan figyelemzavaros mintázat","Túlnyomóan hiperaktív–impulzív mintázat","A tünetszám a küszöb alatt van"],
+  asrsHead:"ASRS v1.1 A-rész szabály", asrsPos:"Szűrésen pozitív mintázat", asrsNeg:"Szűrésen negatív mintázat",
+  asrsNote:"Hat tétel tételenkénti küszöbbel (három „Néha”, három „Gyakran” szinten); 4 vagy több a publikált pozitív határérték (Kessler 2005).",
+  oppHead:"Oppozíciós viselkedés (társuló)", oppNote:"Külön jelenik meg; egyik neurodivergencia-indexbe sem számít bele.",
+  diag:"Az ADHD klinikai diagnózisához az is szükséges, hogy több tünet már 12 éves kor előtt jelen legyen, legalább két környezetben jelentkezzen, egyértelmű funkciózavart okozzon, és ne magyarázza jobban más állapot.",
+  diagChild:"A Vanderbilt-skála az iskolai és az otthoni teljesítményre is rákérdez; kérje meg a tanítót vagy az osztályfőnököt is a kérdőív kitöltésére.",
+  diagAdult:"Egy olyan személy beszámolója, aki gyermekkorában ismerte Önt, erősíti a vizsgálatot.",
+  dimHead:"Dimenziók", dimNote:"Hol helyezkednek el az összesített válaszok az egyes jellemzők spektrumán. Vigye az egeret egy sáv fölé az értékért.",
+  items:(n,t)=>`${n}/${t} tétel`,
+  txtTitle:"Neurodivergens jellemzők profilja", txtExample:" (PÉLDAVÁLASZOK)", txtCum:"Összesített indexek (0–100):",
+  txtDsm:(o,a,b,c)=>`DSM-5 tünetszámok („${o}” vagy magasabb): figyelemzavar ${a}/9, hiperaktív–impulzív ${b}/9 (küszöb: ${c})`,
+  txtAsrs:n=>`ASRS A-rész szabály: ${n}/6 (4-től pozitív)`, txtDims:"Dimenziók:", txtItems:"tétel", txtFoot:"Csak szűrőprofil – nem diagnózis.",
+  mHow:"Hogyan készült a kérdőív",
+  mSteps:[
+   "<strong>A konstruktumok validált mérőeszközökből származnak.</strong> Minden dimenzió egy lektorált tanulmányokban pszichometriailag validált alskálának vagy faktornak felel meg – például a DSM-5 két ADHD-tünetcsoportjának, Barkley öt végrehajtófunkció-faktorának, az AQ öt alskálájának, a CAT-Q három faktorának, a TAS-20 érzésazonosítási és -leírási faktorainak, valamint Dunn szenzoros kvadránsainak.",
+   "<strong>A tételek a forrástétel tartalmát követik.</strong> Az ADHD-tételek egy az egyben megfelelnek a 18 DSM-5-tünetnek, felnőtteknél a WHO ASRS v1.1, gyermekeknél a Vanderbilt és SNAP-IV szülői skálák megfogalmazása szerint. A többi tétel az adott alskála által mért viselkedést fogalmazza át. A tételek adaptációk, nem szó szerinti átvételek – több mérőeszköz (BRIEF, BDEFS, SRS-2, SCQ, Sensory Profile, DCDQ) szerzői jogvédelem alatt áll, és klinikai használatra licencelni kell. A magyar változat e tételek fordítása, nem az eredeti mérőeszközök hivatalos, validált magyar adaptációja.",
+   "<strong>Minden dimenziót legalább három tétel mér</strong> (3–9), és a többarcú konstruktumok külön dimenziókra bomlanak – a végrehajtó funkciók négyre, a szenzoros feldolgozás kettőre, az autizmusspektrum hétre –, így minden szempontot több kérdés mér.",
+   "<strong>Gyakorisági skála.</strong> A felnőtt kérdőív az ASRS ötfokú gyakorisági skáláját használja (Soha → Nagyon gyakran, 0–4 pont). A gyermek kérdőív a Vanderbilt/SNAP-IV négyfokú skáláját használja (Soha → Nagyon gyakran, 0–3 pont).",
+   "<strong>Fordított megfogalmazású tételek</strong> (mint az AQ-ban) szerepelnek az autizmus-, a végrehajtófunkció- és az érzelmi dimenziókban a helyeslési torzítás csökkentésére; ezeket fordítva pontozzuk.",
+   "<strong>Dimenziópontszám</strong> = átlagos tételpontszám ÷ a skála maximuma × 100. A felnőtt kérdőíven az 50 a „Néha”, a 75 a „Gyakran” átlagnak felel meg; a gyermek kérdőíven a 33 ≈ „Alkalmanként”, a 67 ≈ „Gyakran”. Viszonyításként: a SNAP-IV publikált szülői határértékei (tételátlag 1,78 figyelemzavarra és 1,44 hiperaktivitás–impulzivitásra a 0–3 skálán) ezen a skálán 59-nek és 48-nak felelnek meg.",
+   "<strong>Az összesített indexek</strong> a dimenzióik átlagai. Az átfogó index azt a transzdiagnosztikus szemléletet tükrözi, amely szerint az ADHD, az autizmus, a tanulási és a mozgásos eltérések egymással átfedő, dimenzionális és gyakran együtt járó jelenségek, nem különálló kategóriák (Astle és mtsai 2022; Rommelse és mtsai 2010).",
+   "<strong>A kritériumalapú szűrések</strong> a dokumentált számlálási szabályokat alkalmazzák: DSM-5 tünetszámok (17 év alatt legalább 6, 17 éves kortól legalább 5 a 9-ből), a felnőtt kérdőíven pedig az ASRS v1.1 A-rész szabálya (a 6 tételből legalább 4 a küszöbe felett)."
+  ],
+  mLimits:"Korlátok",
+  mLimitList:[
+   "Nincs normálva: a pontszámok azt mutatják, hol helyezkednek el a válaszok a válaszskálán, nem a populációhoz viszonyított percentilist.",
+   "Az ön- és a szülői beszámolót befolyásolja a hangulat, az önismeret és a maszkolás; az álcázó autista felnőttek gyakran alulbecsülik a szociális különbségeiket.",
+   "A szorongás, a depresszió, a trauma, az alvászavar, a hallás- vagy látásprobléma, a pajzsmirigy-betegség és a szerhasználat mind emelheti ezeket a pontszámokat. A magas pontszám ok a szakmai vizsgálatra, nem végkövetkeztetés.",
+   "9–10 éves korban a gyermekek figyelmi tünetekről adott önbeszámolója megbízhatatlan, ezért a gyermek kérdőívet a szülő tölti ki (pedagógusi példány ajánlott)."
+  ],
+  mMap:l=>`Dimenziótérkép – ${l}`, mCols:["Terület","Dimenzió","Mit mér","Tételek","Mérőeszközök és tanulmányok"],
+  mRefs:"Hivatkozások", mRefsNote:"A hivatkozott publikációk eredeti, angol nyelvű címükkel szerepelnek."
+ }
 };
 
 /* index items */
@@ -614,7 +1007,7 @@ for (const f of Object.values(FORMS)){
   f.dimList=[]; f.itemList=[]; let n=0;
   for (const dom of f.domains) for (const dim of dom.dims){
     dim.domain=dom; f.dimList.push(dim);
-    dim.items.forEach((it,i)=>{ it.id=dim.id+(i+1); it.dim=dim; it.n=++n; f.itemList.push(it); });
+    dim.items.forEach((it,i)=>{ it.id=dim.id+(i+1); it.idx=i; it.dim=dim; it.n=++n; f.itemList.push(it); });
   }
   f.max=f.scale.length-1;
 }
@@ -626,6 +1019,9 @@ const store = {
 };
 let formKey = (store.get("ndp:form")||"adult");
 if (!FORMS[formKey]) formKey="adult";
+let lang = store.get("ndp:lang") || ((navigator.language||"").toLowerCase().startsWith("hu") ? "hu" : "en");
+if (!UI[lang]) lang="en";
+let currentTab = "questions";
 const state = {};
 function exampleAnswers(key){
   const f=FORMS[key], lv=EXAMPLE_LEVELS[key], a={};
@@ -646,6 +1042,21 @@ function load(key){
 function save(){ store.set("ndp:"+formKey,state[formKey]); }
 load("adult"); load("child");
 
+/* ---------- Language accessors ---------- */
+const T = () => UI[lang];
+const H = f => lang==="hu" ? HU[f.key] : null;
+const fLabel = f => H(f) ? H(f).label : f.label;
+const fScale = f => H(f) ? H(f).scale : f.scale;
+const fInstr = f => H(f) ? H(f).instructions : f.instructions;
+const domName = (f,d) => H(f) ? H(f).domains[d.id][0] : d.name;
+const domBlurb = (f,d) => H(f) ? H(f).domains[d.id][1] : d.blurb;
+const dimName = (f,d) => H(f) ? H(f).dims[d.id][0] : d.name;
+const dimWhat = (f,d) => H(f) ? H(f).dims[d.id][1] : d.what;
+const itemText = (f,it) => H(f) ? H(f).dims[it.dim.id][2][it.idx] : it.t;
+const compName = (f,c) => H(f) ? H(f).comps[c.id][0] : c.name;
+const compDesc = (f,c) => H(f) ? H(f).comps[c.id][1] : c.desc;
+const band = p => p==null ? null : T().bands[BAND_TO.findIndex(t=>p<t)];
+
 /* ---------- Scoring ---------- */
 const scoreOf=(f,it,v)=> it.r ? f.max-v : v;
 function dimScore(f,dim,ans){
@@ -653,40 +1064,60 @@ function dimScore(f,dim,ans){
   for (const it of dim.items){ const v=ans[it.id]; if (v==null) continue; sum+=scoreOf(f,it,v); n++; }
   return {n, total:dim.items.length, pct: n ? sum/(n*f.max)*100 : null};
 }
-const band=p=> p==null? null : BANDS.find(b=>p<b.to).name;
 function compute(){
   const f=FORMS[formKey], ans=state[formKey].answers, dims={};
   for (const d of f.dimList) dims[d.id]=dimScore(f,d,ans);
   const comps=f.composites.map(c=>{
     const ids = c.dims==="*" ? f.dimList.filter(d=>!d.coOccurring).map(d=>d.id) : c.dims;
     const vals=ids.map(i=>dims[i].pct).filter(v=>v!=null);
-    return {...c, pct: vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null, have:vals.length, of:ids.length};
+    return {...c, pct: vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : null};
   });
-  const dsm={IA:0,HI:0,IAn:0,HIn:0};
-  let asrs=0, asrsN=0, asrsAnswered=0;
+  const dsm={IA:0,HI:0};
+  let asrs=0, asrsN=0;
   for (const it of f.itemList){
     const v=ans[it.id];
-    if (it.d){ dsm[it.d+"n"]++; if (v!=null && v>=f.often) dsm[it.d]++; }
-    if (it.a){ asrsN++; if (v!=null){ asrsAnswered++; if (v>=it.a) asrs++; } }
+    if (it.d && v!=null && v>=f.often) dsm[it.d]++;
+    if (it.a){ asrsN++; if (v!=null && v>=it.a) asrs++; }
   }
-  return {dims,comps,dsm,asrs,asrsN,asrsAnswered};
+  return {dims,comps,dsm,asrs,asrsN};
+}
+
+/* ---------- Render: static text ---------- */
+const $=s=>document.querySelector(s);
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function srcNames(keys){ return keys.map(k=>({DSM5:"DSM-5-TR",ASRS:"ASRS v1.1",ASRS5:"ASRS-5",BAARS:"BAARS-IV",BDEFS:"BDEFS",BRIEF:"BRIEF-2/BRIEF-A",BROWN:"Brown EF/A",UPPS:"UPPS-P",VAND:"Vanderbilt",SNAP:"SNAP-IV",FARAONE:"Faraone 2019",SHAW:"Shaw 2014",DERS:"DERS",ARI:"ARI",RSQ:"RSQ",RSQC:"Children’s RSQ",BONDU:"Bondü & Esser 2015",AHQ:"AHQ",HFREV:"Ashinoff 2021",CDS:"CDS work group 2023",SCTMA:"Becker 2016",SCTC:"Penny 2009 SCT",AQ:"AQ",AQC:"AQ-Child",RAADS:"RAADS-R",SCQ:"SCQ",SRS:"SRS-2",CATQ:"CAT-Q",WCC:"Happé & Frith 2006",TAS:"TAS-20",ALXA:"Kinnaird 2019",AQCh:"AQC (alexithymia)",DUNN:"Sensory Profile",SSP:"Short Sensory Profile",GSQ:"GSQ",ARHQ:"ARHQ",ADCL:"Vinegrad checklist",CLDQ:"Colorado LDQ",ADC:"ADC",DCDQ:"DCDQ’07",ASTLE:"Astle 2022",ROMM:"Rommelse 2010"}[k]||k)).join(" · "); }
+
+function renderStatic(){
+  const t=T();
+  document.documentElement.lang=lang;
+  document.title=t.title;
+  const set=(id,txt)=>{ const el=document.getElementById(id); if (el) el.textContent=txt; };
+  set("t-eyebrow",t.eyebrow); set("t-h1",t.title); set("t-lede",t.lede);
+  set("form-adult",t.formAdult); set("form-child",t.formChild);
+  set("btn-example",t.example); set("btn-clear",t.clear);
+  $("#t-exnotice").innerHTML=t.exNotice; set("btn-clear-2",t.clearStart);
+  set("t-confirm",t.confirm); set("btn-clear-yes",t.yes); set("btn-clear-no",t.keep);
+  set("tab-questions",t.tabQ); set("tab-profile",t.tabP); set("tab-method",t.tabM);
+  set("btn-to-profile",t.seeProfile); set("btn-to-profile-2",t.seeMy); set("t-showsrc",t.showSrc); set("t-foot",t.foot);
+  document.querySelectorAll("#seg-lang button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===lang)));
+  document.querySelectorAll("#seg-form button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.form===formKey)));
 }
 
 /* ---------- Render: questionnaire ---------- */
-const $=s=>document.querySelector(s);
-function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
-function srcNames(keys){ return keys.map(k=>({DSM5:"DSM-5-TR",ASRS:"ASRS v1.1",ASRS5:"ASRS-5",BAARS:"BAARS-IV",BDEFS:"BDEFS",BRIEF:"BRIEF-2/BRIEF-A",BROWN:"Brown EF/A",UPPS:"UPPS-P",VAND:"Vanderbilt",SNAP:"SNAP-IV",FARAONE:"Faraone 2019",SHAW:"Shaw 2014",DERS:"DERS",ARI:"ARI",RSQ:"RSQ",RSQC:"Children’s RSQ",BONDU:"Bondü & Esser 2015",AHQ:"AHQ",HFREV:"Ashinoff 2021",CDS:"CDS work group 2023",SCTMA:"Becker 2016",SCTC:"Penny 2009 SCT",AQ:"AQ",AQC:"AQ-Child",RAADS:"RAADS-R",SCQ:"SCQ",SRS:"SRS-2",CATQ:"CAT-Q",WCC:"Happé & Frith 2006",TAS:"TAS-20",ALXA:"Kinnaird 2019",AQCh:"AQC (alexithymia)",DUNN:"Sensory Profile",SSP:"Short Sensory Profile",GSQ:"GSQ",ARHQ:"ARHQ",ADCL:"Vinegrad checklist",CLDQ:"Colorado LDQ",ADC:"ADC",DCDQ:"DCDQ’07"}[k]||k)).join(" · "); }
-
 function renderQuestions(){
-  const f=FORMS[formKey], ans=state[formKey].answers;
-  $("#instructions").textContent=f.instructions;
+  const f=FORMS[formKey], ans=state[formKey].answers, t=T(), scale=fScale(f);
+  $("#instructions").textContent=fInstr(f);
   let h="";
   for (const dom of f.domains){
-    h+=`<section class="domain"><header><p class="eyebrow">${esc(dom.dims.length)} dimension${dom.dims.length>1?"s":""} · ${dom.dims.reduce((a,d)=>a+d.items.length,0)} items</p><h2>${esc(dom.name)}</h2><p>${esc(dom.blurb)}</p></header><div>`;
+    h+=`<section class="domain"><header><p class="eyebrow">${esc(t.domHead(dom.dims.length, dom.dims.reduce((a,d)=>a+d.items.length,0)))}</p><h2>${esc(domName(f,dom))}</h2><p>${esc(domBlurb(f,dom))}</p></header><div>`;
     for (const dim of dom.dims) for (const it of dim.items){
-      const v=ans[it.id];
-      h+=`<div class="q${v==null?" unanswered":""}" id="q-${it.id}"><div class="qt"><span class="qn">${formKey==="adult"?"Q":"C"}${it.n}</span><span>${esc(it.t)}</span><span class="src">${esc(dim.name)}${it.r?" · reverse-scored":""}${it.d?" · DSM-5 "+(it.d==="IA"?"inattention":"hyperactivity–impulsivity")+" symptom":""}${it.a?" · ASRS Part A item":""} — ${esc(srcNames(dim.src))}</span></div><div class="opts" role="radiogroup" aria-label="${esc(it.t)}">`;
-      f.scale.forEach((lab,i)=>{
+      const v=ans[it.id], txt=itemText(f,it);
+      const tags=[dimName(f,dim)];
+      if (it.r) tags.push(t.rev);
+      if (it.d) tags.push(it.d==="IA"?t.dsmIA:t.dsmHI);
+      if (it.a) tags.push(t.asrsItem);
+      h+=`<div class="q${v==null?" unanswered":""}" id="q-${it.id}"><div class="qt"><span class="qn" data-un="${esc(t.unanswered)}">${formKey==="adult"?"Q":"C"}${it.n}</span><span>${esc(txt)}</span><span class="src">${esc(tags.join(" · "))} — ${esc(srcNames(dim.src))}</span></div><div class="opts" role="radiogroup" aria-label="${esc(txt)}">`;
+      scale.forEach((lab,i)=>{
         const id=`${formKey}-${it.id}-${i}`;
         h+=`<input type="radio" name="${formKey}-${it.id}" id="${id}" value="${i}"${v===i?" checked":""}><label for="${id}">${esc(lab)}</label>`;
       });
@@ -701,7 +1132,7 @@ function updateProgress(){
   const f=FORMS[formKey], ans=state[formKey].answers;
   const n=f.itemList.filter(it=>ans[it.id]!=null).length;
   $("#prog-bar").style.width=(n/f.itemList.length*100)+"%";
-  $("#prog-count").textContent=`${n} / ${f.itemList.length} answered`;
+  $("#prog-count").textContent=T().answered(n,f.itemList.length);
   $("#example-notice").hidden=!state[formKey].example;
 }
 $("#questions").addEventListener("change",e=>{
@@ -716,47 +1147,44 @@ $("#questions").addEventListener("change",e=>{
 /* ---------- Render: profile ---------- */
 function meter(pct,small){
   const w=[30,20,20,30].map(x=>`<i style="width:calc(${x}% - 1.5px)"></i>`).join("");
-  return `<div class="meter${small?" small":""}${pct==null?" empty":""}" ${pct!=null?`title="${pct.toFixed(0)} / 100 · ${band(pct)}"`:""}><div class="bands">${w}</div>${pct!=null?`<span class="pin" style="left:${Math.max(0,Math.min(100,pct))}%"></span>`:""}</div>`;
+  return `<div class="meter${small?" small":""}${pct==null?" empty":""}" ${pct!=null?`title="${pct.toFixed(0)} / 100 · ${esc(band(pct))}"`:""}><div class="bands">${w}</div>${pct!=null?`<span class="pin" style="left:${Math.max(0,Math.min(100,pct))}%"></span>`:""}</div>`;
 }
 const AXIS=`<div class="axis"><span style="left:0">0</span><span style="left:30%">30</span><span style="left:50%">50</span><span style="left:70%">70</span><span style="left:100%">100</span></div>`;
-const LEGEND=`<div class="legend">${BANDS.map((b,i)=>`<span><i style="background:var(--b${i})"></i>${b.name} <span class="mono">${[ "0–29","30–49","50–69","70–100"][i]}</span></span>`).join("")}</div>`;
+const legend=()=>`<div class="legend">${T().bands.map((b,i)=>`<span><i style="background:var(--b${i})"></i>${esc(b)} <span class="mono">${BAND_RANGE[i]}</span></span>`).join("")}</div>`;
 
 function renderProfile(){
-  const f=FORMS[formKey], r=compute(), st=state[formKey];
+  const f=FORMS[formKey], r=compute(), st=state[formKey], t=T(), scale=fScale(f);
   const answered=f.itemList.filter(it=>st.answers[it.id]!=null).length;
   let h="";
-  h+=`<div class="section"><p class="eyebrow">${esc(f.label)} · ${answered} of ${f.itemList.length} items answered${st.example?" · example answers":""}</p>
-  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:end;margin-top:6px"><h2>Cumulative indices</h2><span class="row-actions"><button type="button" class="ghost" id="btn-copy">Copy results as text</button><span class="status" id="copy-status" role="status"></span></span></div>
-  <p class="fine" style="margin-top:6px;max-width:70ch">Each index is the average position (0–100) of its dimensions. 0 means every item answered at the lowest level, 100 the highest. Bands are anchored to the response labels, not to population norms.</p>
+  h+=`<div class="section"><p class="eyebrow">${esc(t.profHead(fLabel(f),answered,f.itemList.length,st.example))}</p>
+  <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:end;margin-top:6px"><h2>${esc(t.cumHead)}</h2><span class="row-actions"><button type="button" class="ghost" id="btn-copy">${esc(t.copy)}</button><span class="status" id="copy-status" role="status"></span></span></div>
+  <p class="fine" style="margin-top:6px;max-width:70ch">${esc(t.cumNote)}</p>
   <div class="panel composites" style="margin-top:14px">`;
   for (const c of r.comps){
-    h+=`<div class="comp"><div><div class="name">${esc(c.name)}</div><div class="desc">${esc(c.desc)}</div></div><div class="meter-wrap">${meter(c.pct)}${c.overall?AXIS:""}</div><div class="val">${c.pct==null?`<b>—</b><span>no answers</span>`:`<b>${c.pct.toFixed(0)}</b><span>${band(c.pct)}</span>`}</div></div>`;
+    h+=`<div class="comp"><div><div class="name">${esc(compName(f,c))}</div><div class="desc">${esc(compDesc(f,c))}</div></div><div class="meter-wrap">${meter(c.pct)}${c.overall?AXIS:""}</div><div class="val">${c.pct==null?`<b>—</b><span>${esc(t.noAnswers)}</span>`:`<b>${c.pct.toFixed(0)}</b><span>${esc(band(c.pct))}</span>`}</div></div>`;
   }
-  h+=`${LEGEND}</div></div>`;
+  h+=`${legend()}</div></div>`;
 
-  // Screening rules
-  const cut=f.dsmCut, oftenLab=f.scale[f.often];
-  const ia=r.dsm.IA, hi=r.dsm.HI;
-  const pres = ia>=cut&&hi>=cut ? "Combined pattern" : ia>=cut ? "Predominantly inattentive pattern" : hi>=cut ? "Predominantly hyperactive–impulsive pattern" : "Below symptom-count threshold";
-  h+=`<div class="section"><h2>Criterion-based screens</h2><p class="fine" style="margin-top:6px;max-width:70ch">These apply the documented counting rules of the source instruments to the matching items. A symptom counts when rated “${esc(oftenLab)}” or higher.</p><div class="screens" style="margin-top:14px">
-   <div class="screen"><span class="eyebrow">DSM-5 inattention symptoms</span><span class="big">${ia}<span class="fine"> / 9</span></span><span class="chip${ia>=cut?" hit":""}">${ia>=cut?"At or above threshold":"Below threshold"}</span><span class="fine">Threshold: ${cut} of 9 ${formKey==="adult"?"(age 17+)":"(under 17)"}.</span></div>
-   <div class="screen"><span class="eyebrow">DSM-5 hyperactive–impulsive symptoms</span><span class="big">${hi}<span class="fine"> / 9</span></span><span class="chip${hi>=cut?" hit":""}">${hi>=cut?"At or above threshold":"Below threshold"}</span><span class="fine">Threshold: ${cut} of 9. Pattern: <strong>${pres}</strong>.</span></div>`;
+  const cut=f.dsmCut, oftenLab=scale[f.often], ia=r.dsm.IA, hi=r.dsm.HI;
+  const pres = t.pres[ ia>=cut&&hi>=cut ? 0 : ia>=cut ? 1 : hi>=cut ? 2 : 3 ];
+  h+=`<div class="section"><h2>${esc(t.scrHead)}</h2><p class="fine" style="margin-top:6px;max-width:70ch">${esc(t.scrNote(oftenLab))}</p><div class="screens" style="margin-top:14px">
+   <div class="screen"><span class="eyebrow">${esc(t.ia)}</span><span class="big">${ia}<span class="fine"> / 9</span></span><span class="chip${ia>=cut?" hit":""}">${esc(ia>=cut?t.atOrAbove:t.below)}</span><span class="fine">${esc(t.thr(cut,formKey==="adult"))}</span></div>
+   <div class="screen"><span class="eyebrow">${esc(t.hi)}</span><span class="big">${hi}<span class="fine"> / 9</span></span><span class="chip${hi>=cut?" hit":""}">${esc(hi>=cut?t.atOrAbove:t.below)}</span><span class="fine">${esc(t.thrShort(cut))} ${esc(t.pattern)}: <strong>${esc(pres)}</strong>.</span></div>`;
   if (formKey==="adult"){
     const pos=r.asrs>=4;
-    h+=`<div class="screen"><span class="eyebrow">ASRS v1.1 Part A rule</span><span class="big">${r.asrs}<span class="fine"> / ${r.asrsN}</span></span><span class="chip${pos?" hit":""}">${pos?"Screen-positive pattern":"Screen-negative pattern"}</span><span class="fine">Six items with item-specific thresholds (three at “Sometimes”, three at “Often”); 4 or more is the published positive cut-off (Kessler 2005).</span></div>`;
+    h+=`<div class="screen"><span class="eyebrow">${esc(t.asrsHead)}</span><span class="big">${r.asrs}<span class="fine"> / ${r.asrsN}</span></span><span class="chip${pos?" hit":""}">${esc(pos?t.asrsPos:t.asrsNeg)}</span><span class="fine">${esc(t.asrsNote)}</span></div>`;
   } else {
     const opp=r.dims.opp;
-    h+=`<div class="screen"><span class="eyebrow">Oppositional behaviour (co-occurring)</span><span class="big">${opp.pct==null?"—":opp.pct.toFixed(0)}<span class="fine"> / 100</span></span><span class="chip${opp.pct!=null&&opp.pct>=50?" hit":""}">${opp.pct==null?"No answers":band(opp.pct)}</span><span class="fine">Shown separately; excluded from all neurodivergence indices.</span></div>`;
+    h+=`<div class="screen"><span class="eyebrow">${esc(t.oppHead)}</span><span class="big">${opp.pct==null?"—":opp.pct.toFixed(0)}<span class="fine"> / 100</span></span><span class="chip${opp.pct!=null&&opp.pct>=50?" hit":""}">${esc(opp.pct==null?t.noAnswers:band(opp.pct))}</span><span class="fine">${esc(t.oppNote)}</span></div>`;
   }
-  h+=`</div><p class="fine" style="margin-top:10px;max-width:72ch">A clinical ADHD diagnosis also requires several symptoms before age 12, presence in two or more settings, clear impairment, and that another condition doesn’t explain them better. ${formKey==="child"?"The Vanderbilt scale additionally asks about school and home performance; ask the class teacher to complete this form too.":"Collateral information from someone who knew you as a child strengthens an assessment."}</p></div>`;
+  h+=`</div><p class="fine" style="margin-top:10px;max-width:72ch">${esc(t.diag)} ${esc(formKey==="child"?t.diagChild:t.diagAdult)}</p></div>`;
 
-  // Dimensions
-  h+=`<div class="section"><h2>Dimensions</h2><p class="fine" style="margin-top:6px">Where the accumulated answers sit on each trait spectrum. Hover a bar for its value.</p>`;
+  h+=`<div class="section"><h2>${esc(t.dimHead)}</h2><p class="fine" style="margin-top:6px">${esc(t.dimNote)}</p>`;
   for (const dom of f.domains){
-    h+=`<div class="dgroup"><h3>${esc(dom.name)}</h3>`;
+    h+=`<div class="dgroup"><h3>${esc(domName(f,dom))}</h3>`;
     for (const d of dom.dims){
       const s=r.dims[d.id];
-      h+=`<div class="drow"><div><div class="dn">${esc(d.name)}</div><div class="dm">${s.n}/${s.total} items · ${esc(srcNames(d.src))}</div></div><div class="meter-wrap">${meter(s.pct,true)}</div><div class="val">${s.pct==null?`<b>—</b><span>not answered</span>`:`<b>${s.pct.toFixed(0)}</b><span>${band(s.pct)}${s.n<s.total?" · partial":""}</span>`}</div></div>`;
+      h+=`<div class="drow"><div><div class="dn">${esc(dimName(f,d))}</div><div class="dm">${esc(t.items(s.n,s.total))} · ${esc(srcNames(d.src))}</div></div><div class="meter-wrap">${meter(s.pct,true)}</div><div class="val">${s.pct==null?`<b>—</b><span>${esc(t.notAnswered)}</span>`:`<b>${s.pct.toFixed(0)}</b><span>${esc(band(s.pct))}${s.n<s.total?" · "+esc(t.partial):""}</span>`}</div></div>`;
     }
     h+=`</div>`;
   }
@@ -765,77 +1193,60 @@ function renderProfile(){
   $("#btn-copy").addEventListener("click",()=>copyText(r));
 }
 function copyText(r){
-  const f=FORMS[formKey]; const L=[];
-  L.push(`Neurodivergence Trait Profile — ${f.label}${state[formKey].example?" (EXAMPLE ANSWERS)":""}`);
-  L.push("", "Cumulative indices (0–100):");
-  for (const c of r.comps) L.push(`  ${c.name}: ${c.pct==null?"—":c.pct.toFixed(0)+" ("+band(c.pct)+")"}`);
-  L.push("", `DSM-5 symptom counts (rated ${f.scale[f.often]}+): inattention ${r.dsm.IA}/9, hyperactive–impulsive ${r.dsm.HI}/9 (threshold ${f.dsmCut})`);
-  if (formKey==="adult") L.push(`ASRS Part A rule: ${r.asrs}/6 (positive at 4+)`);
-  L.push("", "Dimensions:");
-  for (const dom of f.domains){ L.push(`  ${dom.name}`); for (const d of dom.dims){ const s=r.dims[d.id]; L.push(`    ${d.name}: ${s.pct==null?"—":s.pct.toFixed(0)+" ("+band(s.pct)+")"} [${s.n}/${s.total} items]`); } }
-  L.push("", "Screening profile only — not a diagnosis.");
+  const f=FORMS[formKey], t=T(), scale=fScale(f), L=[];
+  L.push(`${t.txtTitle} — ${fLabel(f)}${state[formKey].example?t.txtExample:""}`);
+  L.push("", t.txtCum);
+  for (const c of r.comps) L.push(`  ${compName(f,c)}: ${c.pct==null?"—":c.pct.toFixed(0)+" ("+band(c.pct)+")"}`);
+  L.push("", t.txtDsm(scale[f.often], r.dsm.IA, r.dsm.HI, f.dsmCut));
+  if (formKey==="adult") L.push(t.txtAsrs(r.asrs));
+  L.push("", t.txtDims);
+  for (const dom of f.domains){ L.push(`  ${domName(f,dom)}`); for (const d of dom.dims){ const s=r.dims[d.id]; L.push(`    ${dimName(f,d)}: ${s.pct==null?"—":s.pct.toFixed(0)+" ("+band(s.pct)+")"} [${s.n}/${s.total} ${t.txtItems}]`); } }
+  L.push("", t.txtFoot);
   const txt=L.join("\n"), status=$("#copy-status");
-  const fallback=()=>{ status.textContent="Copy blocked here — select the text below."; const pre=document.createElement("textarea"); pre.value=txt; pre.rows=12; pre.style.width="100%"; pre.style.marginTop="12px"; pre.readOnly=true; $("#profile").prepend(pre); pre.select(); };
-  try{ navigator.clipboard.writeText(txt).then(()=>{status.textContent="Copied";},fallback); }catch(e){ fallback(); }
+  const fallback=()=>{ status.textContent=t.copyBlocked; const pre=document.createElement("textarea"); pre.value=txt; pre.rows=12; pre.style.width="100%"; pre.style.marginTop="12px"; pre.readOnly=true; $("#profile").prepend(pre); pre.select(); };
+  try{ navigator.clipboard.writeText(txt).then(()=>{status.textContent=t.copied;},fallback); }catch(e){ fallback(); }
 }
 
 /* ---------- Render: method ---------- */
 function renderMethod(){
-  const f=FORMS[formKey];
+  const f=FORMS[formKey], t=T();
   const used=new Set(); f.dimList.forEach(d=>d.src.forEach(s=>used.add(s))); used.add("ASTLE"); used.add("ROMM");
   if (formKey==="adult") used.add("ASRS");
-  let rows=f.dimList.map(d=>`<tr><td>${esc(d.domain.name)}</td><td><strong>${esc(d.name)}</strong></td><td>${esc(d.what)}</td><td class="mono">${d.items.length}</td><td>${esc(srcNames(d.src))}</td></tr>`).join("");
+  const rows=f.dimList.map(d=>`<tr><td>${esc(domName(f,d.domain))}</td><td><strong>${esc(dimName(f,d))}</strong></td><td>${esc(dimWhat(f,d))}</td><td class="mono">${d.items.length}</td><td>${esc(srcNames(d.src))}</td></tr>`).join("");
   $("#method").innerHTML=`
-  <div><h2>How this questionnaire was built</h2>
-   <ol>
-    <li><strong>Constructs come from validated instruments.</strong> Each dimension corresponds to a subscale or factor that has been psychometrically validated in peer-reviewed work — for example the two DSM-5 ADHD symptom clusters, Barkley’s five executive-function factors, the five AQ subscales, the three CAT-Q factors, the TAS-20 difficulty-identifying/describing-feelings factors, and Dunn’s sensory quadrants.</li>
-    <li><strong>Items are written to the source item’s content.</strong> ADHD items map one-to-one onto the 18 DSM-5 symptoms, worded for adults as in the WHO ASRS v1.1 and for children as in the Vanderbilt/SNAP-IV parent scales. Other items paraphrase the behaviour a subscale samples. Items are adaptations, not verbatim reproductions — several instruments (BRIEF, BDEFS, SRS-2, SCQ, Sensory Profile, DCDQ) are copyrighted and must be licensed for clinical use.</li>
-    <li><strong>Every dimension has at least three items</strong> (range 3–9), and multi-faceted constructs are split into separate dimensions — executive function into four, sensory processing into two, the autism spectrum into seven — so each angle is measured by several questions.</li>
-    <li><strong>Frequency scale.</strong> The adult form uses the ASRS five-point frequency scale (Never → Very often, scored 0–4). The child form uses the Vanderbilt/SNAP-IV four-point scale (Never → Very often, scored 0–3).</li>
-    <li><strong>Reverse-worded items</strong> (as in the AQ) are included in the autism, executive-function and emotion dimensions to reduce acquiescence bias; they are reverse-scored.</li>
-    <li><strong>Dimension score</strong> = mean item score ÷ scale maximum × 100. On the adult form 50 = averaging “Sometimes” and 75 = averaging “Often”; on the child form 33 ≈ “Occasionally” and 67 ≈ “Often”. For reference, published SNAP-IV parent cut-offs (item means of 1.78 inattention and 1.44 hyperactivity–impulsivity on 0–3) sit at 59 and 48 on this scale.</li>
-    <li><strong>Cumulative indices</strong> average their dimensions. The overall index reflects the transdiagnostic view that ADHD, autism, learning and motor differences are overlapping, dimensional and frequently co-occurring rather than separate boxes (Astle et al. 2022; Rommelse et al. 2010).</li>
-    <li><strong>Criterion screens</strong> apply the documented counting rules: DSM-5 symptom counts (≥6 of 9 under 17, ≥5 from 17) and, on the adult form, the ASRS v1.1 Part A rule (≥4 of 6 items over their thresholds).</li>
-   </ol></div>
-  <div><h2>Limits</h2>
-   <ul>
-    <li>Not normed: scores show where the answers fall on the response scale, not a percentile against the population.</li>
-    <li>Self- and parent-report are affected by mood, insight and masking; autistic adults who camouflage often under-report social differences.</li>
-    <li>Anxiety, depression, trauma, sleep problems, hearing or vision problems, thyroid problems and substance use can all raise these scores. A high score is a reason for assessment, not a conclusion.</li>
-    <li>At 9–10, children’s self-report of attention symptoms is unreliable, which is why the child form is parent-rated (a teacher copy is recommended).</li>
-   </ul></div>
-  <div><h2>Dimension map — ${esc(f.label)}</h2><div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Domain</th><th>Dimension</th><th>What it measures</th><th>Items</th><th>Instruments &amp; papers</th></tr></thead><tbody>${rows}</tbody></table></div></div>
-  <div><h2>References</h2><ul class="refs">${[...used].map(k=>`<li><span class="k">${esc(srcNames([k]))}</span> — ${esc(REFS[k])}</li>`).join("")}</ul></div>`;
+  <div><h2>${esc(t.mHow)}</h2><ol>${t.mSteps.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+  <div><h2>${esc(t.mLimits)}</h2><ul>${t.mLimitList.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></div>
+  <div><h2>${esc(t.mMap(fLabel(f)))}</h2><div class="tablewrap" style="margin-top:10px"><table><thead><tr>${t.mCols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div></div>
+  <div><h2>${esc(t.mRefs)}</h2>${t.mRefsNote?`<p class="fine" style="margin-top:6px">${esc(t.mRefsNote)}</p>`:""}<ul class="refs">${[...used].map(k=>`<li><span class="k">${esc(srcNames([k]))}</span> — ${esc(REFS[k])}</li>`).join("")}</ul></div>`;
 }
 
 /* ---------- Wiring ---------- */
-function renderAll(){
-  document.querySelectorAll(".seg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.form===formKey)));
-  renderQuestions(); renderProfile(); renderMethod();
-}
-function setTab(t){
-  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===t)));
-  for (const p of ["questions","profile","method"]) document.getElementById("pane-"+p).hidden = p!==t;
-  if (t==="profile") renderProfile();
-  store.set("ndp:tab",t);
+function renderAll(){ renderStatic(); renderQuestions(); renderProfile(); renderMethod(); }
+function setTab(tab){
+  currentTab=tab;
+  document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.tab===tab)));
+  for (const p of ["questions","profile","method"]) document.getElementById("pane-"+p).hidden = p!==tab;
+  if (tab==="profile") renderProfile();
+  store.set("ndp:tab",tab);
 }
 document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
-document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{ formKey=b.dataset.form; store.set("ndp:form",formKey); $("#confirm-clear").hidden=true; renderAll(); }));
+document.querySelectorAll("#seg-form button").forEach(b=>b.addEventListener("click",()=>{ formKey=b.dataset.form; store.set("ndp:form",formKey); $("#confirm-clear").hidden=true; renderAll(); }));
+document.querySelectorAll("#seg-lang button").forEach(b=>b.addEventListener("click",()=>{ lang=b.dataset.lang; store.set("ndp:lang",lang); renderAll(); }));
 const toProfile=()=>{ setTab("profile"); window.scrollTo({top:0}); };
 $("#btn-to-profile").addEventListener("click",toProfile);
 $("#btn-to-profile-2").addEventListener("click",toProfile);
 $("#btn-example").addEventListener("click",()=>{ state[formKey]={answers:exampleAnswers(formKey),example:true}; save(); renderAll(); });
-const askClear=()=>{ $("#confirm-clear").hidden=false; };
-$("#btn-clear").addEventListener("click",askClear);
-$("#btn-clear-2").addEventListener("click",()=>{ state[formKey]={answers:{},example:false}; save(); renderAll(); setTab("questions"); });
-$("#btn-clear-yes").addEventListener("click",()=>{ state[formKey]={answers:{},example:false}; save(); $("#confirm-clear").hidden=true; renderAll(); setTab("questions"); });
+$("#btn-clear").addEventListener("click",()=>{ $("#confirm-clear").hidden=false; });
+const clearForm=()=>{ state[formKey]={answers:{},example:false}; save(); $("#confirm-clear").hidden=true; renderAll(); setTab("questions"); };
+$("#btn-clear-2").addEventListener("click",clearForm);
+$("#btn-clear-yes").addEventListener("click",clearForm);
 $("#btn-clear-no").addEventListener("click",()=>{ $("#confirm-clear").hidden=true; });
 $("#show-src").addEventListener("change",e=>{ $("#questions").classList.toggle("show-src",e.target.checked); });
 
 renderAll();
 const hash=location.hash.slice(1);
-const saved=store.get("ndp:tab");
-setTab(["questions","profile","method"].includes(hash)?hash:(state[formKey].example?"profile":(saved||"questions")));
+const savedTab=store.get("ndp:tab");
+setTab(["questions","profile","method"].includes(hash)?hash:(state[formKey].example?"profile":(savedTab||"questions")));
 })();
 </script>
 </body>
