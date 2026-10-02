@@ -7,7 +7,18 @@ Two skills, one for each side of the interview table:
 | Skill | Audience | What it does |
 |---|---|---|
 | [`interview-prep`](skills/interview-prep/SKILL.md) | Engineers | Coaches you through scored practice drills for the three skills modern interviews actually test: specification quality, output evaluation, failure-mode reasoning. Drills use your own stack. |
-| [`interview-designer`](skills/interview-designer/SKILL.md) | Hiring teams | Builds company-specific question sets, scorecards, and job descriptions under five hard generation rules; audits an existing process for interview drift. |
+| [`interview-designer`](skills/interview-designer/SKILL.md) | Hiring teams | Builds company-specific question sets, scorecards, and job descriptions under five hard generation rules; runs an interview drift audit on an existing process. |
+
+## What is interview drift?
+
+Interview drift is the distance between what a hiring process tests and what
+the role actually requires. The term was coined by Gabor Mayer, author of The
+AI-Era Engineering Playbook. High drift means a process accurately measures
+skills AI has automated, while missing the ones that now predict performance.
+
+Score your own process with the
+[Interview Drift Toolkit](https://aieraengineering.com/interview-drift-toolkit/),
+or run `/interview-designer` in audit mode.
 
 ## Install
 

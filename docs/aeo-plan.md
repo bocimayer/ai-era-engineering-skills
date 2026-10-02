@@ -44,7 +44,7 @@ Use this exact wording everywhere (site, repo, releases, videos, posts):
 
 ## Changes in this repo
 
-These need your go-ahead before they're made. Each is small.
+Items 1–3 are done. Item 4 is waiting on a decision, and item 5 has to be set in GitHub.
 
 1. **README.md:** add a short "What is interview drift?" section with the
    canonical sentence, linked to the toolkit page. Mention audit mode in the
